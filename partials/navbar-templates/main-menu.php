@@ -11,7 +11,6 @@ $menu_builder = new AGPTA_Nav_Menu_Builder();
 
 $menu_items = $menu_builder->get_menu_list();
 
-
 ?>
 <div id="primary-nav" class="hidden sm:ml-6 sm:block">
     <div class="flex space-x-4">
@@ -19,7 +18,7 @@ $menu_items = $menu_builder->get_menu_list();
 			<?php if( isset($menu_list['sub_menu']) && ! empty($menu_list['sub_menu']) ): ?>
                 <div class="relative ml-3">
                     <div class="relative group">
-                        <button data-menu-id="<?php echo strtolower($menu_list['title']);?>"  type="button" class="inline-flex items-center has-dropdown text-gray-800 hover:bg-red-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-expanded="false" aria-haspopup="true">
+                        <button data-menu-id="<?php echo strtolower($menu_list['title']);?>"  type="button" class="has-dropdown inline-flex items-center text-gray-800 hover:bg-red-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-expanded="false" aria-haspopup="true">
 							<?php echo $menu_list['title']; ?>
                             <svg class="ml-1 w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M5.25 7.5l4.5 4.5 4.5-4.5"/>

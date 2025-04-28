@@ -21,12 +21,14 @@
         },
         eventBinder: function() {
             $('.has-dropdown').on('click', this.hasDropdownAction.bind(this));
+
             $('body').on('click', this.closeDropdownAction.bind(this));
             $('#mobile-menu-button').on('click', this.mobileMenuAction.bind(this));
         },
 
         hasDropdownAction: function(e) {
             let menuId = $(e.target).data('menu-id');
+            $('.dropdown-menu').hide();
             $('.dropdown-menu[data-menu="' + menuId + '"]').toggle();
             $('body').addClass('open-menu');
         },
