@@ -1,0 +1,11 @@
+/*
+ * File: theme.css
+ *
+ * @author Gabriel Castillo <gabriel@gabrielcastillo.net>
+ * Copyright (c) 2025.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

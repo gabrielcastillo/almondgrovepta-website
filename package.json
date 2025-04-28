@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "dev": "npx tailwindcss -i ./src/app.css -o ./css/app.css --watch",
+    "build": "npx tailwindcss -i ./css/theme.css -o ./css/build.css --build",
+    "watch": "npx tailwindcss -i ./src/css/theme.css -o ./css/theme.css --watch",
+    "minify-js": "minify ./src/js/theme.js > ./js/all.min.js",
+    "minify-css": "minify ./css/build.css > ./css/all.min.css",
+    "production": "npx tailwindcss -i ./src/css/theme.css -o ./css/theme.css && npx tailwindcss -i ./css/theme.css -o ./css/build.css --build && minify ./css/build.css > ./css/all.min.css && minify ./src/js/theme.js > ./js/all.min.js"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.10",
+    "minify": "^10.3.0"
+  }
+}
