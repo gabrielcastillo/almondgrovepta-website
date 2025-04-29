@@ -8,7 +8,7 @@
 ?>
 
 <nav id="agpta-navbar" class="bg-white border-t-2 border-red-500">
-    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 <button id="mobile-menu-button" type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-red-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
@@ -23,8 +23,8 @@
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex flex-shrink-0 items-center">
                     <a href="<?php echo get_bloginfo('url'); ?>" title="<?php echo get_bloginfo('name'); ?>">
-                        <img class="block h-8 w-auto lg:hidden" src="" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-                        <img class="hidden h-8 w-auto lg:block" src="" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+                        <img class="block h-8 w-auto lg:hidden" src="<?php echo esc_url( wp_get_attachment_url( get_theme_mod( 'custom_logo') ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+                        <img class="hidden h-8 w-auto lg:block" src="<?php echo esc_url( wp_get_attachment_url( get_theme_mod( 'custom_logo' ) ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
                     </a>
                 </div>
                 <?php get_template_part('partials/navbar-templates/main', 'menu'); ?>

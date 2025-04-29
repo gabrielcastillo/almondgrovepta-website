@@ -1,3 +1,14 @@
+<?php
+/*
+ * File: header.php
+ *
+ * @author Gabriel Castillo <gabriel@gabrielcastillo.net>
+ * Copyright (c) 2025.
+ */
+
+$banner = ( is_front_page() ) ? true : false;
+
+?>
 <!DOCTYPE html>
 <html class="h-full">
 <head>
@@ -8,7 +19,9 @@
 	<?php wp_head(); ?>
 </head>
 <body class="h-full">
+    <?php if( $banner ) :?>
     <?php get_template_part('partials/banner', 'template'); ?>
+    <?php endif; ?>
     <?php get_template_part( 'partials/navbar' ); ?>
-    <?php get_template_part( 'partials/hero', 'template' ); ?>
+
 
