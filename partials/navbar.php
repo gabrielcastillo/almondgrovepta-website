@@ -7,7 +7,7 @@
  */
 ?>
 
-<nav id="agpta-navbar" class="bg-white border-t-2 border-red-500">
+<nav id="agpta-navbar" class="bg-white border-t-2 border-red-500 border-b-2 border-b-gray-100">
     <div class="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">

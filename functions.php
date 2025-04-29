@@ -107,10 +107,22 @@ function agpta_get_posts() {
 	echo $html;
 }
 
+/**
+ * @return void
+ */
 function agpta_get_team_member() {
-//	<li>
-//	    <img class="mx-auto size-24 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">
-//	    <h3 class="mt-6 text-base/7 font-semibold tracking-tight text-gray-900">Michael Foster</h3>
-//	    <p class="text-sm/6 text-gray-600">Co-Founder / CTO</p>
-//	</li>
+	global $wpdb;
+	$html = '';
+	$tablename = $wpdb->prefix . 'agpta_team';
+
+	$results = $wpdb->get_results( "SELECT * FROM $tablename" );
+
+	foreach ( $results as $member ) {
+		$html .= '<li>';
+		$html .= '<img class="mx-auto size-24 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">';
+		$html .= '<h3 class="mt-6 text-base/7 font-semibold tracking-tight text-gray-900">'. $member->member_name .'</h3>';
+		$html .= '<p class="text-sm/6 text-gray-600">'. $member->member_role .'</p>';
+		$html .= '</li>';
+	}
+	echo $html;
 }

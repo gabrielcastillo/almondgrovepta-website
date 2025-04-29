@@ -9,3 +9,22 @@
 @tailwind components;
 @tailwind utilities;
 
+.h1-text {
+    @apply text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl;
+}
+
+.large-text {
+    @apply mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none;
+}
+
+.medium-text {
+    @apply text-xl/8 text-gray-600;
+}
+
+.normal-text {
+    @apply mt-10 max-w-xl text-base/7 text-gray-700;
+}
+
+.section-image-container {
+    @apply mt-32 sm:mt-20 xl:mx-auto xl:max-w-7xl xl:px-8;
+}
