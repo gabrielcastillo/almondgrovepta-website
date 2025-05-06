@@ -129,18 +129,37 @@ function agpta_get_posts() {
 function agpta_get_team_member() {
 	global $wpdb;
 	$html = '';
-	$tablename = $wpdb->prefix . 'agpta_team';
 
-	$results = $wpdb->get_results( "SELECT * FROM $tablename" );
+	$args = array(
+		'post_type' => 'team',
+		'posts_per_page' => -1,
+		'post_status' => 'publish',
+	);
 
-	foreach ( $results as $member ) {
-		$html .= '<li>';
-		$html .= '<img class="mx-auto size-24 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">';
-		$html .= '<h3 class="mt-6 text-base/7 font-semibold tracking-tight text-gray-900">'. $member->member_name .'</h3>';
-		$html .= '<p class="text-sm/6 text-gray-600">'. $member->member_role .'</p>';
-		$html .= '</li>';
+	$sql = /** @lang sql */
+		"SELECT * FROM wp_posts WHERE post_type = 'team' AND post_status = 'publish'";
+	$results = $wpdb->get_results($sql);
+
+
+	if ( $results ) {
+		foreach( $results as $result ) {
+			$profile_image = get_the_post_thumbnail_url( $result->ID, 'full');
+			if ( ! $profile_image ) {
+				$profile_image = 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80';
+			}
+
+			$member_name = get_post_meta($result->ID, '_member_name', true);
+			$member_role = get_post_meta($result->ID, '_member_role', true);
+
+			?>
+			<li>
+				<img class="mx-auto size-24 rounded-full" src="<?php echo $profile_image; ?>" alt="<?php echo $member_name; ?>">
+				<h3 class="mt-6 text-base/7 font-semibold tracking-tight text-gray-900"><?php echo $member_name; ?></h3>
+				<p class="text-sm/6 text-gray-600"><?php echo $member_role; ?></p>
+			</li>
+			<?php
+		}
 	}
-	echo $html;
 }
 
 /**
