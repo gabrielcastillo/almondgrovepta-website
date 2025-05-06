@@ -12,6 +12,8 @@ define('TEMPLATE_DIR', get_template_directory() );
 require_once TEMPLATE_DIR . '/inc/AGPTA_Nav_Menu_Builder.php';
 
 register_nav_menu('primary','Primary Menu');
+register_nav_menu( 'footer', 'Footer Menu' );
+register_nav_menu( 'mobile', 'Mobile Menu' );
 
 add_theme_support( 'title-tag' );
 add_theme_support( 'custom-logo' );
@@ -23,6 +25,20 @@ add_theme_support( 'post-thumbnails' );
 add_action( 'wp_enqueue_scripts', 'agpta_load_scripts' );
 
 
+
+add_action( 'widgets_init', 'agpta_register_sidebars' );
+
+function agpta_register_sidebars() {
+	register_sidebar( array(
+		'id' => 'primary',
+		'name' => __('Primary Sidebar', 'agpta-theme'),
+		'description' => __('Primary sidebar, used in blog section and or any other section with sidebar content', 'agpta_theme'),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+}
 
 
 /**
@@ -127,3 +143,28 @@ function agpta_get_team_member() {
 	echo $html;
 }
 
+/**
+ * Footer Nav Menu Display
+ * @return string
+ */
+function agpta_footer_nav_menu_display() {
+	$locations = get_nav_menu_locations();
+
+	$menu_id = $locations['footer'];
+	$menu_items = wp_get_nav_menu_items( $menu_id );
+	$html = '';
+
+	if ( $menu_items ) {
+		$html .= '<nav class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6" aria-label="Footer">';
+
+		foreach( $menu_items as $item ) {
+			$html .= '<a href="'. esc_url( $item->url ) .'" class="text-gray-400 hover:text-white">'. esc_html( $item->title ) .'</a>';
+		}
+
+		$html .= '</nav>';
+	} else {
+		$html .= 'Menu not found!';
+	}
+
+	return $html;
+}

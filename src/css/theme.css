@@ -9,6 +9,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.title-text {
+    @apply text-4xl font-bold leading-tight md:text-5xl;
+}
+
 .h1-text {
     @apply text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl;
 }
@@ -27,4 +31,13 @@
 
 .section-image-container {
     @apply mt-32 sm:mt-20 xl:mx-auto xl:max-w-7xl xl:px-8;
+}
+
+
+main article p {
+    @apply text-lg leading-relaxed mb-4;
+}
+
+.post-content {
+    @apply px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed;
 }
