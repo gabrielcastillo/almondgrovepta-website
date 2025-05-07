@@ -6,10 +6,13 @@
  * Copyright (c) 2025.
  */
 
+global $wp;
 
 $menu_builder = new AGPTA_Nav_Menu_Builder();
 
 $menu_items = $menu_builder->get_menu_list();
+
+$current_slug = $wp->request;
 
 ?>
 <div id="primary-nav" class="hidden sm:ml-6 sm:block">
@@ -25,14 +28,14 @@ $menu_items = $menu_builder->get_menu_list();
                             </svg>
                         </button>
                     </div>
-                    <div style="display:none;" data-menu="<?php echo strtolower($menu_list['title']); ?>" class="dropdown-menu absolute z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="" tabindex="-1">
+                    <div style="display:none;" data-menu="<?php echo strtolower($menu_list['title']); ?>" class="<?php echo ( $current_slug === trim($menu_list['slug'],'/')) ? esc_attr('bg-red-700 text-white') : ''; ?> dropdown-menu absolute z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="" tabindex="-1">
 						<?php foreach($menu_list['sub_menu'] as $sub_menu_list): $sub_menu_list_toggle_button_id = strtolower(str_replace(" ",'-', $menu_list['title'])) ?>
-                            <a href="<?php echo ($sub_menu_list['url']) ?: ''; ?>" class="block hover:bg-gray-100 hover:rounded-md px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="<?php echo $sub_menu_list_toggle_button_id; ?>"><?php echo $sub_menu_list['title']; ?></a>
+                            <a href="<?php echo ($sub_menu_list['url']) ?: ''; ?>" class="<?php echo ( $current_slug === trim($sub_menu_list['slug'],'/')) ? esc_attr('bg-red-700 text-white') : ''; ?> block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="<?php echo $sub_menu_list_toggle_button_id; ?>"><?php echo $sub_menu_list['title']; ?></a>
 						<?php endforeach; ?>
                     </div>
                 </div>
 			<?php else: ?>
-                <a href="<?php echo $menu_list['url']; ?>" class="text-gray-800 hover:bg-red-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page"><?php echo $menu_list['title']; ?></a>
+                <a href="<?php echo $menu_list['url']; ?>" class="<?php echo ( $current_slug === trim($menu_list['slug'],'/')) ? esc_attr('bg-red-700 text-white') : ''; ?> text-gray-800 hover:bg-red-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page"><?php echo $menu_list['title']; ?></a>
 			<?php endif; ?>
 		<?php endforeach; ?>
     </div>

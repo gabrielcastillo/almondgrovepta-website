@@ -38,6 +38,7 @@ class AGPTA_Nav_Menu_Builder
 						'title' => $item->title,
 						'url' => $item->url,
 						'sub_menu' => [],
+						'slug' => $this->get_url_slug( $item->url )
 					];
 					continue;
 				}
@@ -48,6 +49,7 @@ class AGPTA_Nav_Menu_Builder
 						'ID' => url_to_postid($item->url),
 						'title' => $item->title,
 						'url' => $item->url,
+						'slug' => $this->get_url_slug( $item->url )
 					];
 					continue;
 				}
@@ -56,6 +58,7 @@ class AGPTA_Nav_Menu_Builder
 					'ID' => url_to_postid($item->url),
 					'title' => $item->title,
 					'url' => $item->url,
+					'slug' => $this->get_url_slug( $item->url )
 				];
 			}
 
@@ -76,5 +79,20 @@ class AGPTA_Nav_Menu_Builder
 		return array_search( $parent_id, $parent_IDs, true );
 	}
 
+	private function get_url_slug( $url ): string|null {
+		$url = rtrim( $url, '/');
+
+		$path = parse_url( $url, PHP_URL_PATH );
+
+		if ( $path ) {
+			$slug = basename( $path );
+		} else {
+			$slug = $path;
+		}
+
+
+
+		return $path;
+	}
 }
 
