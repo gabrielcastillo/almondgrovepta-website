@@ -10,7 +10,7 @@
 
 <?php get_header(); ?>
 <?php get_template_part( 'partials/hero', 'template' ); ?>
-	<div class="bg-white">
+	<div class="bg-white container mx-auto border-l border-r">
 
 
 		<main class="isolate">

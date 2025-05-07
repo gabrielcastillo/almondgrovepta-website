@@ -23,10 +23,10 @@ add_theme_support( 'post-thumbnails' );
 //add_image_size('banner-image', 176, 256);
 
 add_action( 'wp_enqueue_scripts', 'agpta_load_scripts' );
-
-
-
+add_action( 'login_enqueue_scripts', 'agpta_custom_login_logo' );
 add_action( 'widgets_init', 'agpta_register_sidebars' );
+
+add_filter('login_headerurl', 'agpta_login_header_url');
 
 function agpta_register_sidebars() {
 	register_sidebar( array(
@@ -166,7 +166,7 @@ function agpta_get_team_member() {
  * Footer Nav Menu Display
  * @return string
  */
-function agpta_footer_nav_menu_display() {
+function agpta_footer_nav_menu_display(): string {
 	$locations = get_nav_menu_locations();
 
 	$menu_id = $locations['footer'];
@@ -186,4 +186,26 @@ function agpta_footer_nav_menu_display() {
 	}
 
 	return $html;
+}
+
+/**
+ * Change login logo
+ * @return void
+ */
+function agpta_custom_login_logo() {
+    ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+            background-image: url( <?php echo get_stylesheet_directory_uri()?>/images/ag-pta-logo.jpg );
+        }
+    </style>
+    <?php
+}
+
+/**
+ * Change login logo url
+ * @return string|void
+ */
+function agpta_login_header_url() {
+    return  get_bloginfo('url');
 }

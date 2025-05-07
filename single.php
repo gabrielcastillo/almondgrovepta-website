@@ -8,8 +8,8 @@
 
 ?>
 <?php get_header(); ?>
-	<div class="flex container px-6 py-24 mx-auto space-y-12 border-r border-l">
-		<main class="flex-1 p-8 pb-0">
+	<div class="flex container mx-auto border-r border-l bg-white min-h-screen">
+		<main class="flex-1 py-24 pb-0">
 			<div class="md:hidden flex items-center mb-4">
 				<button onclick="toggleSidebar()" class="text-gray-800">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
@@ -27,7 +27,7 @@
 								<a rel="noopener noreferrer" href="#" target="_blank" class="underline dark:text-violet-600">
 									<span itemprop="name"><?php the_author(); ?></span>
 								</a>on
-								<time datetime="<?php the_date(); ?>"><?php the_date(); ?></time>
+								<time datetime="<?php the_date(); ?>"><?php echo get_the_date(); ?></time>
 							</p>
 						</div>
 						<div class="post-content">
@@ -41,8 +41,10 @@
 				<p>No Post Found!</p>
 			<?php endif; ?>
 		</main>
-		<aside id="sidebar" class="w-1/4 border-l p-6 hidden sm:block">
-			<?php get_sidebar('primary'); ?>
+		<aside id="sidebar" class="w-1/4 border-l p-0 hidden sm:block">
+            <div class="py-24 flex justify-center">
+	            <?php get_sidebar('primary'); ?>
+            </div>
 		</aside>
 	</div>
 <?php get_footer(); ?>

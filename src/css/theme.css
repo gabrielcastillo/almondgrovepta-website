@@ -9,6 +9,14 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    background: #f5f5f4;
+}
+
+main {
+    background: #FFFFFF;
+}
+
 .title-text {
     @apply text-4xl font-bold leading-tight md:text-5xl;
 }
@@ -40,4 +48,48 @@ main article p {
 
 .post-content {
     @apply px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed;
+}
+
+.widget-title {
+    @apply text-pretty text-2xl text-center mb-4;
+}
+
+.calendar_wrap {
+    @apply rounded min-w-full;
+}
+
+.wp-calendar-table {
+    @apply w-full text-center border-collapse border min-w-full;
+}
+
+.wp-calendar-table thead tr {
+    @apply bg-gray-200 text-gray-700;
+}
+
+.wp-calendar-table thead tr th {
+    @apply p-2;
+}
+
+.wp-calendar-table tbody tr td {
+    @apply md:p-1.5;
+}
+
+.wp-calendar-table tbody tr td#today {
+    @apply bg-gray-600 text-white rounded;
+}
+
+.wp-calendar-table tbody tr td a {
+    @apply bg-red-500 text-white block md:px-2 md:py-0.5 rounded;
+}
+
+.wp-calendar-table tbody tr td a:hover {
+    @apply bg-red-300;
+}
+
+.wp-calendar-nav {
+    @apply flex justify-between mx-1 my-2;
+}
+
+.wp-calendar-nav span a:hover {
+    @apply text-red-500;
 }
