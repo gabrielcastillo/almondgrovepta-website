@@ -58,6 +58,14 @@ main article p {
     @apply rounded min-w-full;
 }
 
+input[type=text], input[type=email], textarea {
+    @apply rounded focus:ring focus:ring-red-500 focus:border-0 focus:ring-1;
+}
+
+
+/**
+Widget Calendar
+ */
 .wp-calendar-table {
     @apply w-full text-center border-collapse border min-w-full;
 }
