@@ -53,6 +53,8 @@ $settings = get_option( 'agpta_settings' );
         <p class="mt-10 text-center text-sm/6 text-gray-400">&copy; <script>document.write(new Date().getFullYear())</script> <?php echo get_bloginfo('name'); ?>. All rights reserved.</p>
     </div>
 </footer>
+
+
 <!--<div id="checkout">-->
 <!--    Checkout will insert the payment form here -->
 <!--</div>-->
@@ -161,6 +163,7 @@ $settings = get_option( 'agpta_settings' );
 <!--        }, 5000);-->
 <!--    }-->
 <!--</script>-->
+</div>
 <?php wp_footer(); ?>
 </body>
 </html>

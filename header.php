@@ -18,10 +18,14 @@ $banner = ( is_front_page() ) ? true : false;
 	<link rel="stylesheet" href="<?php echo esc_url( get_stylesheet_uri() ); ?>?v=<?php echo time(); ?>" type="text/css" />
 	<?php wp_head(); ?>
 </head>
-<body class="h-full">
-    <?php if( $banner ) :?>
-    <?php get_template_part('partials/banner', 'template'); ?>
-    <?php endif; ?>
-    <?php get_template_part( 'partials/navbar' ); ?>
+<body class="h-full bg-gray-100 font-sans">
 
+<?php if( $banner ) :?>
+	<?php get_template_part('partials/banner', 'template'); ?>
+<?php endif; ?>
+<?php get_template_part( 'partials/navbar' ); ?>
+
+<div class="container mx-auto">
+
+    <header class="bg-white shadow p-4 flex justify-between items-center"></header>
 
