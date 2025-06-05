@@ -8,63 +8,91 @@
 
 ?>
 <?php get_header(); ?>
-    <div class="flex container mx-auto border-r border-l bg-white min-h-screen">
-        <main class="flex-1 py-24 pb-0">
-            <div class="md:hidden flex items-center mb-4">
-                <button onclick="toggleSidebar()" class="text-gray-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <main id="content" class="flex-1 p-0 md:p-6 site-main">
+            <div class="w-full mx-auto space-y-4 text-center bg-gray-100">
+                <p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
+                <h1 class="text-4xl font-bold leading-tight md:text-5xl md:pb-10">
+					<?php
+					if ( is_category() ) {
+						single_cat_title();
+					} elseif ( is_tag() ) {
+						single_tag_title();
+					} elseif ( is_author() ) {
+						the_author();
+					} elseif ( is_date() ) {
+						echo get_the_date();
+					} elseif ( is_post_type_archive() ) {
+                        post_type_archive_title();
+                    } else {
+						_e( "Archive", get_text_domain() );
+					}
+					?>
+                </h1>
+
             </div>
-			<?php if ( have_posts() ) :?>
-				<?php while( have_posts() ) : the_post(); ?>
-                    <article>
-                        <div class="w-full mx-auto space-y-4 text-center">
-                            <p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
-                            <h1 class="text-4xl font-bold leading-tight md:text-5xl"><?php the_title(); ?></h1>
-                            <p class="text-sm dark:text-gray-600">by
-                                <a rel="noopener noreferrer" href="#" target="_blank" class="underline dark:text-violet-600">
-                                    <span itemprop="name"><?php the_author(); ?></span>
-                                </a>on
-                                <time datetime="<?php the_date(); ?>"><?php echo get_the_date(); ?></time>
-                            </p>
-                        </div>
-                        <div class="post-content">
-							<?php the_content(); ?>
-							<?php wp_link_pages(); ?>
-							<?php edit_post_link(); ?>
-                        </div>
-                        <div class="max-w-md mx-auto mt-10">
-                            <div class="bg-white rounded-lg shadow-md p-4">
-                                <div class="flex justify-between items-center mb-4">
-                                    <button class="text-gray-500 hover:text-gray-800">&larr;</button>
-                                    <h2 class="text-lg font-semibold">May 2025</h2>
-                                    <button class="text-gray-500 hover:text-gray-800">&rarr;</button>
-                                </div>
 
-                                <div class="grid grid-cols-7 text-sm text-center font-medium text-gray-600 mb-2">
-                                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                                </div>
+            <div class="mt-16 space-y-20 lg:mt-20 lg:space-y-20 archive-posts">
+		        <?php if ( have_posts() ) :?>
+			        <?php while( have_posts() ) : the_post(); ?>
 
-                                <div class="grid grid-cols-7 text-center text-sm gap-1">
-                                    <!-- Empty cells for padding -->
-                                    <div></div><div></div><div></div><div></div>
-                                    <!-- Calendar dates -->
-                                    <div class="p-2 rounded hover:bg-gray-200 cursor-pointer">1</div>
-                                    <div class="p-2 rounded hover:bg-gray-200 cursor-pointer">2</div>
-                                    <div class="p-2 rounded hover:bg-gray-200 cursor-pointer">3</div>
-                                    <!-- More days... -->
+                        <article id="post-<?php the_ID(); ?>" class="relative isolate flex flex-col gap-8 lg:flex-row <?php  post_class(); ?>">
+                            <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
+						        <?php if ( has_post_thumbnail() ): ?>
+                                    <div class="entry-thumbnail">
+                                        <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr( the_title() ); ?>">
+									        <?php the_post_thumbnail('medium', ['class' => 'absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover', 'alt' => esc_attr( get_the_title() ) ]); ?>
+                                        </a>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="entry-thumbnail">
+                                        <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr( the_title() ); ?>">
+                                            <?php $url = 'https://www.dummyimage.com/256x400/d1d1d1/fff.jpg&text=' . get_the_date(); ?>
+                                            <img src="<?php echo $url; ?>" class="absolute inset-0 size-full rounded-2xl object-cover" alt="esc_attr( the_title() ); ?>" />
+                                        </a>
+                                    </div>
+						        <?php endif; ?>
+                                <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-x-4 text-xs">
+                                    <time datetime="2020-03-16" class="text-gray-500"><?php echo get_the_date(); ?></time>
+                                    <a href="<?php the_permalink(); ?>" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"><?php the_title(); ?></a>
+                                </div>
+                                <div class="group relative max-w-xl">
+                                    <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <span class="absolute inset-0"></span>
+                                            <?php the_title(); ?>
+                                        </a>
+                                    </h3>
+                                    <p class="mt-5 text-sm/6 text-gray-600"><?php the_excerpt(); ?></p>
+                                </div>
+                                <div class="mt-6 flex border-t border-gray-900/5 pt-6">
+                                    <div class="relative flex items-center gap-x-4">
+                                        <div class="text-sm/6">
+                                            <p class="font-semibold text-gray-900">
+                                                <a href="#" class="capitalize">
+                                                    <span class="text-sm font-normal">By:</span> <?php the_author(); ?>
+                                                </a>
+                                            </p>
+                                            <!--                                        <p class="text-gray-600">Co-Founder / CTO</p>-->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
-				<?php endwhile; ?>
-			<?php else: ?>
-                <p>No Post Found!</p>
-			<?php endif; ?>
+                        </article>
+
+			        <?php endwhile; ?>
+		        <?php else: ?>
+                    <p>No Reports Found!</p>
+		        <?php endif; ?>
+            </div>
+            <div class="pagination">
+		        <?php the_posts_navigation(); ?>
+            </div>
         </main>
-        <aside id="sidebar" class="w-1/4 border-l p-0 hidden sm:block">
+        <aside class="bg-white w-full md:w-1/4 border-r hidden lg:block">
             <div class="py-24 flex justify-center">
 				<?php get_sidebar('primary'); ?>
             </div>

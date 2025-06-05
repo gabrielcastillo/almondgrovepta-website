@@ -9,7 +9,7 @@
 $settings = get_option( 'agpta_settings' );
 
 ?>
-
+</div>
 <footer class="bg-gray-900">
     <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         <?php echo agpta_footer_nav_menu_display(); ?>
@@ -54,116 +54,6 @@ $settings = get_option( 'agpta_settings' );
     </div>
 </footer>
 
-
-<!--<div id="checkout">-->
-<!--    Checkout will insert the payment form here -->
-<!--</div>-->
-<!--<button class="stripe-button agpta-add-to-cart" id="payButton">-->
-<!--    <div class="spinner hidden" id="spinner"></div>-->
-<!--    <span id="buttonText">Add To Cart</span>-->
-<!--</button>-->
-
-<!--<script src="https://js.stripe.com/v3/"></script>-->
-<!--<script>-->
-<!---->
-<!--    // This test secret API key is a placeholder. Don't include personal details in requests with this key.-->
-<!--    // To see your test secret API key embedded in code samples, sign in to your Stripe account.-->
-<!--    // You can also find your test secret API key at https://dashboard.stripe.com/test/apikeys.-->
-<!--    const stripe = Stripe("pk_test_51RJyKDGfPj7h176HWLveYik4dBnILDJ2lK3RnvtL9J64W91vsB5Z266r1xQELemlj3zUvGyZ3ADkqbZvZdzYt2v100s1ks0TfA");-->
-<!---->
-<!--    initialize();-->
-<!---->
-<!--    // Create a Checkout Session-->
-<!--    async function initialize() {-->
-<!--        const fetchClientSecret = async () => {-->
-<!--            const response = await fetch("http://ptasite.test/wp-json/AGPTA/v1/post/data/", {-->
-<!--                method: "POST",-->
-<!--            });-->
-<!--            const { clientSecret } = await response.json();-->
-<!--            return clientSecret;-->
-<!--        };-->
-<!---->
-<!--        const checkout = await stripe.initEmbeddedCheckout({-->
-<!--            fetchClientSecret,-->
-<!--        });-->
-<!---->
-<!--        // Mount Checkout-->
-<!--        checkout.mount('#checkout');-->
-<!--    }-->
-<!--    // Set Stripe publishable key to initialize Stripe.js-->
-<!---->
-<!---->
-<!--    // Select payment button-->
-<!--    const payBtn = document.querySelector("#payButton");-->
-<!---->
-<!--    // Payment request handler-->
-<!--    payBtn.addEventListener("click", function (evt) {-->
-<!--        setLoading(true);-->
-<!---->
-<!--        createCheckoutSession().then(function (data) {-->
-<!--            if(data.sessionId){-->
-<!--                stripe.redirectToCheckout({-->
-<!--                    sessionId: data.sessionId,-->
-<!--                }).then(handleResult);-->
-<!--            }else{-->
-<!--                handleResult(data);-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-<!---->
-<!--    // Create a Checkout Session with the selected product-->
-<!--    const createCheckoutSession = function (stripe) {-->
-<!--        return fetch("http://ptasite.test/wp-json/AGPTA/v1/post/data/", {-->
-<!--            method: "POST",-->
-<!--            headers: {-->
-<!--                "Content-Type": "application/json",-->
-<!--            },-->
-<!--            body: JSON.stringify({-->
-<!--                createCheckoutSession: 1,-->
-<!--            }),-->
-<!--        }).then(function (result) {-->
-<!--            return result.json();-->
-<!--        });-->
-<!--    };-->
-<!---->
-<!--    // Handle any errors returned from Checkout-->
-<!--    const handleResult = function (result) {-->
-<!--        if (result.error) {-->
-<!--            showMessage(result.error.message);-->
-<!--        }-->
-<!---->
-<!--        setLoading(false);-->
-<!--    };-->
-<!---->
-<!--    // Show a spinner on payment processing-->
-<!--    function setLoading(isLoading) {-->
-<!--        if (isLoading) {-->
-<!--            // Disable the button and show a spinner-->
-<!--            payBtn.disabled = true;-->
-<!--            document.querySelector("#spinner").classList.remove("hidden");-->
-<!--            document.querySelector("#buttonText").classList.add("hidden");-->
-<!--        } else {-->
-<!--            // Enable the button and hide spinner-->
-<!--            payBtn.disabled = false;-->
-<!--            document.querySelector("#spinner").classList.add("hidden");-->
-<!--            document.querySelector("#buttonText").classList.remove("hidden");-->
-<!--        }-->
-<!--    }-->
-<!---->
-<!--    // Display message-->
-<!--    function showMessage(messageText) {-->
-<!--        const messageContainer = document.querySelector("#paymentResponse");-->
-<!---->
-<!--        messageContainer.classList.remove("hidden");-->
-<!--        messageContainer.textContent = messageText;-->
-<!---->
-<!--        setTimeout(function () {-->
-<!--            messageContainer.classList.add("hidden");-->
-<!--            messageContainer.textContent = "";-->
-<!--        }, 5000);-->
-<!--    }-->
-<!--</script>-->
-</div>
 <?php wp_footer(); ?>
 </body>
 </html>

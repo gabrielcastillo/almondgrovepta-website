@@ -5,6 +5,7 @@
  * @author Gabriel Castillo <gabriel@gabrielcastillo.net>
  * Copyright (c) 2025.
  */
+use Dompdf\Dompdf;
 
 define('THEME_VERSION', '1.0.0');
 define('TEMPLATE_DIR', get_template_directory() );
@@ -208,4 +209,86 @@ function agpta_custom_login_logo() {
  */
 function agpta_login_header_url() {
     return  get_bloginfo('url');
+}
+
+function get_text_domain() :string {
+    return 'agpta';
+}
+
+
+
+add_action( 'wp_enqueue_scripts', 'enqueue_stripe_js' );
+function enqueue_stripe_js() {
+    if ( is_singular( 'pta_events' ) ) {
+        wp_enqueue_script('stripe-js', 'https://js.stripe.com/v3/', [], null, true);
+    }
+}
+
+/**
+ * Redirect user after payment success.
+ */
+add_action( 'template_redirect', function() {
+    if ( is_page( 'payment-success' ) && isset( $_GET['session_id'] ) ) {
+        require_once __DIR__ . '/vendor/autoload.php';
+        \Stripe\Stripe::setApiKey('sk_test_51RLZwFPi5c1UANUbX8Lurkayx8XbJA6VhVzcuFM4NC7S8lkcNRBxKEC8QeQg9QsFcLBHJL05UDQIryqRK29IHJaK00whSPN9gL');
+
+        $session = \Stripe\Checkout\Session::retrieve( $_GET['session_id'] );
+
+        error_log('User paid for: ' . $session->amount_total );
+    }
+});
+
+/**
+ * Create user email for successful payment.
+ *
+ * @param $email
+ * @param $event_name
+ * @param $amount
+ *
+ * @return void
+ */
+function send_ticket_email($email, $event_name, $amount) {
+    $subject = 'Your ticket for ' . $event_name;
+    $body = "Thank you for you purchase!\n\n";
+    $body .= 'Event: ' . $event_name . "\n";
+    $body .= "Amount: \$$amount\n\n";
+    $body .= "Your ticket is attached.";
+
+    $headers = ['Content-Type: text/plain; charset=UTF-8'];
+
+    $attachment_path = generate_pdf_ticket($event_name, $amount);
+    if ( $attachment_path ) {
+        wp_mail($email, $subject, $body, $headers, [$attachment_path]);
+        unlink($attachment_path);
+    } else {
+        wp_mail( $email, $subject, $body, $headers);
+    }
+}
+
+/**
+ * Generate PDF Ticket
+ * Save pdf ticket into uploads, send path to email.
+ *
+ * @param $event_name
+ * @param $amount
+ *
+ * @return string
+ */
+function generate_pdf_ticket($event_name, $amount) {
+	require_once __DIR__ . '/vendor/autoload.php';
+    $dompdf = new Dompdf();
+
+    $html = "<h1>Ticket for {$event_name}</h1>
+            <p>Thank you for your payment of \${$amount}</p>";
+
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+
+    $upload_dir = wp_upload_dir();
+
+    $path = $upload_dir['basedir'] . '/ticket-' . uniqid( '', true ) . '.pdf';
+    file_put_contents($path, $dompdf->output());
+
+    return $path;
 }
