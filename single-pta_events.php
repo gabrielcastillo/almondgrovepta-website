@@ -1,20 +1,51 @@
 <?php
+/*
+ * File: single-pta_event.php
+ *
+ * @author Gabriel Castillo <gabriel@gabrielcastillo.net>
+ * Copyright (c) 2025.
+ */
+
 get_header();
-$price = get_post_meta( get_the_ID(), '_event_price', true);
-
 ?>
+	<div class="flex container mx-auto border-r border-l bg-white min-h-screen">
+		<main class="flex-1 py-24 pb-0">
+			<div class="md:hidden flex items-center mb-4">
+				<button onclick="toggleSidebar()" class="text-gray-800">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</button>
+			</div>
+			<?php if ( have_posts() ) :?>
+				<?php while( have_posts() ) : the_post(); ?>
+					<article>
+						<div class="w-full mx-auto space-y-4 text-center">
+							<p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
+							<h1 class="text-4xl font-bold leading-tight md:text-5xl"><?php the_title(); ?></h1>
+							<p class="text-sm dark:text-gray-600">by
+								<a rel="noopener noreferrer" href="#" target="_blank" class="underline dark:text-violet-600">
+									<span itemprop="name"><?php the_author(); ?></span>
+								</a>on
+								<time datetime="<?php the_date(); ?>"><?php echo get_the_date(); ?></time>
+							</p>
+						</div>
+						<div class="post-content">
+							<?php the_content(); ?>
+							<?php wp_link_pages(); ?>
+							<?php edit_post_link(); ?>
+						</div>
+					</article>
+				<?php endwhile; ?>
+			<?php else: ?>
+				<p>No Post Found!</p>
+			<?php endif; ?>
+		</main>
+		<aside id="sidebar" class="w-1/4 border-l p-0 hidden sm:block">
+			<div class="py-24 flex justify-center">
+				<?php get_sidebar('primary'); ?>
+			</div>
+		</aside>
+	</div>
 
-<button id="checkout-button">
-	Buy Ticket ($<?php echo esc_html( $price ); ?>)
-</button>
-
-<script>
-	document.getElementById('checkout-button').addEventListener('click', function() {
-        fetch('<?php echo get_template_directory_uri(); ?>/create-checkout-session.php?event_id=<?php echo get_the_ID(); ?>')
-		.then( res => res.json())
-		.then( data => {
-            return Stripe('pk_test_51RLZwFPi5c1UANUbB0IE2yHG8pqYyAkPW7dGRTUvDTZMAaiul9h6rzt2WwF3pXxpEzBzavTeodLw2YE0VNe5Gain00BfTBLEer').redirectToCheckout({ sessionId: data.id });
-		});
-	});
-</script>
 <?php get_footer(); ?>
