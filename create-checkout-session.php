@@ -1,7 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
 require_once 'vendor/autoload.php';
-\Stripe\Stripe::setApiKey('sk_test_51RLZwFPi5c1UANUbX8Lurkayx8XbJA6VhVzcuFM4NC7S8lkcNRBxKEC8QeQg9QsFcLBHJL05UDQIryqRK29IHJaK00whSPN9gL');
+//\Stripe\Stripe::setApiKey('');
 
 
 $event_id = isset( $_GET['event_id'] ) ? (int) $_GET['event_id'] : 0;

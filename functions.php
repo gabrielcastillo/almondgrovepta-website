@@ -230,7 +230,7 @@ function enqueue_stripe_js() {
 add_action( 'template_redirect', function() {
     if ( is_page( 'payment-success' ) && isset( $_GET['session_id'] ) ) {
         require_once __DIR__ . '/vendor/autoload.php';
-        \Stripe\Stripe::setApiKey('sk_test_51RLZwFPi5c1UANUbX8Lurkayx8XbJA6VhVzcuFM4NC7S8lkcNRBxKEC8QeQg9QsFcLBHJL05UDQIryqRK29IHJaK00whSPN9gL');
+        //\Stripe\Stripe::setApiKey('');
 
         $session = \Stripe\Checkout\Session::retrieve( $_GET['session_id'] );
 
