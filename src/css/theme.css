@@ -63,9 +63,7 @@ input[type=text], input[type=email], textarea {
 }
 
 
-/**
-Widget Calendar
- */
+/** Widget Calendar */
 .wp-calendar-table {
     @apply w-full text-center border-collapse border min-w-full;
 }
@@ -104,5 +102,5 @@ Widget Calendar
 
 
 .add_to_cart_button {
-    @apply bg-blue-600 rounded px-4 py-2;
+    @apply bg-red-600 rounded px-4 py-2 text-white hover:bg-red-400;
 }

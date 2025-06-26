@@ -1,10 +1,16 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
 require_once 'vendor/autoload.php';
-//\Stripe\Stripe::setApiKey('');
+
+$options = get_option( 'agpta_settings', array() );
+
+$stripe_key = ( $options['enable_stripe_test'] ) ? $options['test_secret_key'] : $options['live_secret_key'];
+
+\Stripe\Stripe::setApiKey( $stripe_key );
 
 
 $event_id = isset( $_GET['event_id'] ) ? (int) $_GET['event_id'] : 0;
+$qty = isset( $_GET['qty'] ) ? (int) $_GET['qty'] : 1;
 
 $price = get_post_meta( $event_id, '_event_price', true);
 
@@ -22,7 +28,7 @@ $session = \Stripe\Checkout\Session::create([
 			'product_data' => ['name' => get_the_title($event_id)],
 			'unit_amount' => (int) ( $price * 100 ),
 		],
-		'quantity' => 1,
+		'quantity' => $qty,
 	]],
 	'mode' => 'payment',
 	'success_url' => get_bloginfo('url') . '/payment-success',

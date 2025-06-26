@@ -6,6 +6,7 @@
  * Copyright (c) 2025.
  */
 use Dompdf\Dompdf;
+use Stripe\Checkout\Session;
 
 define('THEME_VERSION', '1.0.0');
 define('TEMPLATE_DIR', get_template_directory() );
@@ -227,12 +228,12 @@ function enqueue_stripe_js() {
 /**
  * Redirect user after payment success.
  */
-add_action( 'template_redirect', function() {
+add_action(  'template_redirect', function() {
     if ( is_page( 'payment-success' ) && isset( $_GET['session_id'] ) ) {
         require_once __DIR__ . '/vendor/autoload.php';
         //\Stripe\Stripe::setApiKey('');
 
-        $session = \Stripe\Checkout\Session::retrieve( $_GET['session_id'] );
+        $session = Session::retrieve( $_GET['session_id'] );
 
         error_log('User paid for: ' . $session->amount_total );
     }
@@ -274,7 +275,7 @@ function send_ticket_email($email, $event_name, $amount) {
  *
  * @return string
  */
-function generate_pdf_ticket($event_name, $amount) {
+function generate_pdf_ticket($event_name, $amount): string {
 	require_once __DIR__ . '/vendor/autoload.php';
     $dompdf = new Dompdf();
 

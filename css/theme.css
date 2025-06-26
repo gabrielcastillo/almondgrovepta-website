@@ -2074,9 +2074,7 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
   --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity, 1));
 }
 
-/**
-Widget Calendar
- */
+/** Widget Calendar */
 
 .wp-calendar-table {
   width: 100%;
@@ -2151,11 +2149,18 @@ Widget Calendar
 .add_to_cart_button {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.add_to_cart_button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-gray-100:hover {

@@ -8,7 +8,7 @@
 
 
 ?>
-<div id="sidebar-primary" class="">
+<div id="sidebar-primary" class="px-4">
 	<?php dynamic_sidebar( 'primary' ); ?>
     <ul class="mt-6 space-y-4">
         <li><a href="#" class="hover:text-gray-400">Link 1</a></li>
