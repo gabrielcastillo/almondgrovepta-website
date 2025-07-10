@@ -1,0 +1,28 @@
+/*
+ * File: widgets.css
+ *
+ * @author Gabriel Castillo <gabriel@gabrielcastillo.net>
+ * Copyright (c) 2025.
+ */
+
+.wp-block-group,
+.widget {
+    @apply mb-8;
+}
+
+.wp-block-heading {
+    @apply font-medium text-gray-900 font-semibold tracking-wider;
+}
+
+.wp-block-group ul,
+.wp-block-group ol,
+.widget ul,
+.widget ol {
+    @apply mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400;
+}
+
+.wp-block-group ul li:hover,
+.wp-block-group ol li:hover,
+.widget ul li:hover {
+    @apply hover:text-slate-900;
+}

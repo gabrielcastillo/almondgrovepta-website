@@ -9,10 +9,10 @@
 ?>
 <?php get_header(); ?>
     <div class="flex flex-col md:flex-row min-h-screen">
-        <main id="content" class="flex-1 p-0 md:p-6 site-main">
-            <div class="w-full mx-auto space-y-4 text-center bg-gray-100">
+        <main id="content" class="flex-1 py-12 pb-0">
+            <div class="w-full mx-auto space-y-4 text-center">
                 <p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
-                <h1 class="text-4xl font-bold leading-tight md:text-5xl md:pb-10">
+                <h1 class="text-4xl font-bold leading-tight md:text-4xl">
 					<?php
 					if ( is_category() ) {
 						single_cat_title();
@@ -93,7 +93,7 @@
             </div>
         </main>
         <aside class="bg-white w-full md:w-1/4 border-r hidden lg:block">
-            <div class="py-24 flex justify-center">
+            <div class="py-24 flex justify-center border-l">
 				<?php get_sidebar('primary'); ?>
             </div>
         </aside>

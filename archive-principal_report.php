@@ -11,10 +11,10 @@
 <?php get_header(); ?>
 
 <div class="flex flex-col md:flex-row min-h-screen">
-    <main id="content" class="flex-1 p-0 md:p-6 site-main px-5 pb-2">
+    <main id="content" class="flex-1 py-12 pb-0">
         <div class="w-full mx-auto space-y-4 text-center">
             <p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
-            <h1 class="text-4xl font-bold leading-tight md:text-5xl md:pb-10">
+            <h1 class="text-4xl font-bold leading-tight md:text-4xl">
                 <?php
                 post_type_archive_title();
                 ?>

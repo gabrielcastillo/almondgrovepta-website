@@ -27,6 +27,11 @@ class AGPTA_Nav_Menu_Builder
 		$nav_menu = [];
 
 		if (($locations = get_nav_menu_locations()) && isset($locations[$this->menu_name])) {
+
+			if ( empty( $locations[$this->menu_name]) ) {
+				return [];
+			}
+
 			$menu_object = wp_get_nav_menu_object($locations[$this->menu_name]);
 
 			$menu_items = wp_get_nav_menu_items( $menu_object->term_id);
@@ -75,24 +80,17 @@ class AGPTA_Nav_Menu_Builder
 	 * @return false|int|string
 	 */
 	private function menu_item_has_children(array $menu, int $parent_id): bool|int|string {
-		$parent_IDs = array_column($menu, $parent_id);
-		return array_search( $parent_id, $parent_IDs, true );
+		foreach ($menu as $item) {
+			if ($item->menu_item_parent == $parent_id) {
+				return true;  // There's a child for this parent ID.
+			}
+		}
+		return false;  // No children found.
 	}
 
-	private function get_url_slug( $url ): string|null {
-		$url = rtrim( $url, '/');
-
-		$path = parse_url( $url, PHP_URL_PATH );
-
-		if ( $path ) {
-			$slug = basename( $path );
-		} else {
-			$slug = $path;
-		}
-
-
-
-		return $path;
+	private function get_url_slug(string $url): ?string {
+		$path = parse_url($url, PHP_URL_PATH);
+		return $path ? trim($path, '/') : null;
 	}
 }
 

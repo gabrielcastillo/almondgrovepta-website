@@ -293,3 +293,9 @@ function generate_pdf_ticket($event_name, $amount): string {
 
     return $path;
 }
+
+add_action( 'agpta_settings', 'agpta_top_banner_input_callback' );
+
+function agpta_top_banner_input_callback() {
+    $options = get_options('agpta_settings');
+}

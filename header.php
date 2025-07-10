@@ -27,5 +27,3 @@ $banner = ( is_front_page() ) ? true : false;
 
 <div class="container mx-auto">
 
-    <header class="bg-white shadow p-4 flex justify-between items-center"></header>
-

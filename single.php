@@ -22,7 +22,7 @@
 					<article>
 						<div class="w-full mx-auto space-y-4 text-center">
 							<p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
-							<h1 class="text-4xl font-bold leading-tight md:text-5xl"><?php the_title(); ?></h1>
+							<h1 class="text-4xl font-bold leading-tight md:text-4xl"><?php the_title(); ?></h1>
 							<p class="text-sm dark:text-gray-600">by
 								<a rel="noopener noreferrer" href="#" target="_blank" class="underline dark:text-violet-600">
 									<span itemprop="name"><?php the_author(); ?></span>
@@ -41,7 +41,7 @@
 				<p>No Post Found!</p>
 			<?php endif; ?>
 		</main>
-		<aside id="sidebar" class="w-1/4 border-l p-0 hidden sm:block">
+		<aside id="sidebar" class="w-1/4 border-l border-slate-200 p-0 hidden sm:block">
             <div class="py-24 flex justify-center">
 	            <?php get_sidebar('primary'); ?>
             </div>
