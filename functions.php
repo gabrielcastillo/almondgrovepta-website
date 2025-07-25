@@ -299,3 +299,7 @@ add_action( 'agpta_settings', 'agpta_top_banner_input_callback' );
 function agpta_top_banner_input_callback() {
     $options = get_options('agpta_settings');
 }
+
+function custom_excerpt( $excerpt ) {
+    echo preg_replace( '/^<p>|<\/p>$/', '', $excerpt);
+}

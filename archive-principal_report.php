@@ -21,47 +21,40 @@
             </h1>
         </div>
 
-        <div class="mt-16 space-y-20 lg:mt-20 lg:space-y-20 archive-posts">
+        <div class="px-10 mt-16 space-y-20 lg:mt-20 lg:space-y-20 archive-posts">
 			<?php if ( have_posts() ) :?>
 				<?php while( have_posts() ) : the_post(); ?>
 
-                    <article id="post-<?php the_ID(); ?>" class="w-full mx-auto space-y-4 <?php  post_class(); ?> px-8">
-                        <div class="relative aspect-video lg:aspect-square lg:w-64 lg:shrink-0">
-	                        <?php if ( has_post_thumbnail() ): ?>
-                                <div class="entry-thumbnail">
-                                    <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr( the_title() ); ?>">
-				                        <?php the_post_thumbnail('medium', ['class' => 'absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover', 'alt' => esc_attr( get_the_title() ) ]); ?>
-                                    </a>
-                                </div>
-	                        <?php else: ?>
-                                <div class="entry-thumbnail">
-                                    <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr( the_title() ); ?>">
-				                        <?php $url = 'https://www.dummyimage.com/256x400/d1d1d1/fff.jpg&text=' . get_the_date(); ?>
-                                        <img src="<?php echo $url; ?>" class="absolute inset-0 size-full rounded-2xl object-cover" alt="esc_attr( the_title() ); ?>" />
-                                    </a>
+                    <article class="relative isolate flex flex-col gap-8 lg:flex-row">
+                        <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
+	                        <?php if ( has_post_thumbnail() ) :?>
+                                <div class="mb-10 max-w-4xl mx-auto">
+			                        <?php the_post_thumbnail('full', ['class' => 'w-full h-auto rounded-lg']); ?>
                                 </div>
 	                        <?php endif; ?>
                         </div>
-                        <div class="py-10">
+                        <div>
                             <div class="flex items-center gap-x-4 text-xs">
-                                <time datetime="2020-03-16" class="text-gray-500"><?php echo get_the_date(); ?></time>
-                                <a href="<?php the_permalink(); ?>" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"><?php the_title(); ?></a>
+                                <time datetime="<?php the_date(); ?>" class="text-gray-500"><?php echo get_the_date(); ?></time>
                             </div>
                             <div class="group relative max-w-xl">
                                 <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
                                     <a href="<?php the_permalink(); ?>">
                                         <span class="absolute inset-0"></span>
-					                    <?php the_title(); ?>
+                                        <?php the_title(); ?>
                                     </a>
                                 </h3>
-                                <p class="mt-5 text-sm/6 text-gray-600"><?php the_excerpt(); ?></p>
+                                <p class="mt-5 text-sm/6 text-gray-600">
+                                    <?php custom_excerpt( get_the_excerpt() ); ?>
+                                </p>
                             </div>
                             <div class="mt-6 flex border-t border-gray-900/5 pt-6">
                                 <div class="relative flex items-center gap-x-4">
                                     <div class="text-sm/6">
-                                        <p class="font-semibold text-gray-900">
-                                            <a href="#" class="capitalize">
-                                                <span class="text-sm font-normal">By:</span> <?php the_author(); ?>
+                                        <p class="font-semibold text-gray-900 capitalize">
+                                            <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta('ID') ) ); ?>">
+                                                <span class="absolute inset-0"></span>
+                                               By: <?php the_author(); ?>
                                             </a>
                                         </p>
                                     </div>
@@ -79,7 +72,7 @@
             <?php the_posts_navigation(); ?>
         </div>
     </main>
-    <?php get_template_part('partials/primary', 'sidebar'); ?>
+	<?php get_template_part('partials/primary', 'sidebar'); ?>
 </div>
 <?php get_footer(); ?>
 
