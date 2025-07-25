@@ -56,10 +56,6 @@ main article p {
     @apply text-lg leading-relaxed mb-4;
 }
 
-.post-content {
-    @apply px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed;
-}
-
 .widget-title {
     @apply text-pretty text-2xl text-center mb-4;
 }

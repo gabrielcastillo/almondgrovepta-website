@@ -10,8 +10,8 @@
 
 <?php get_header(); ?>
 
-<div class="flex flex-col md:flex-row min-h-screen">
-    <main id="content" class="flex-1 py-12 pb-0">
+<div class="flex container mx-auto border-r border-l bg-white min-h-screen">
+    <main class="flex-1 py-24 pb-0">
         <div class="w-full mx-auto space-y-4 text-center">
             <p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
             <h1 class="text-4xl font-bold leading-tight md:text-4xl">
@@ -25,8 +25,8 @@
 			<?php if ( have_posts() ) :?>
 				<?php while( have_posts() ) : the_post(); ?>
 
-                    <article id="post-<?php the_ID(); ?>" class="relative isolate flex flex-col gap-8 lg:flex-row <?php  post_class(); ?>">
-                        <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
+                    <article id="post-<?php the_ID(); ?>" class="w-full mx-auto space-y-4 <?php  post_class(); ?> px-8">
+                        <div class="relative aspect-video lg:aspect-square lg:w-64 lg:shrink-0">
 	                        <?php if ( has_post_thumbnail() ): ?>
                                 <div class="entry-thumbnail">
                                     <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr( the_title() ); ?>">
@@ -41,9 +41,8 @@
                                     </a>
                                 </div>
 	                        <?php endif; ?>
-                            <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
                         </div>
-                        <div>
+                        <div class="py-10">
                             <div class="flex items-center gap-x-4 text-xs">
                                 <time datetime="2020-03-16" class="text-gray-500"><?php echo get_the_date(); ?></time>
                                 <a href="<?php the_permalink(); ?>" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"><?php the_title(); ?></a>
@@ -65,7 +64,6 @@
                                                 <span class="text-sm font-normal">By:</span> <?php the_author(); ?>
                                             </a>
                                         </p>
-                                        <!--                                        <p class="text-gray-600">Co-Founder / CTO</p>-->
                                     </div>
                                 </div>
                             </div>
@@ -81,11 +79,7 @@
             <?php the_posts_navigation(); ?>
         </div>
     </main>
-    <aside class="bg-white w-full md:w-1/4 border-r hidden lg:block">
-        <div class="py-24 flex justify-center">
-			<?php get_sidebar('primary'); ?>
-        </div>
-    </aside>
+    <?php get_template_part('partials/primary', 'sidebar'); ?>
 </div>
 <?php get_footer(); ?>
 
