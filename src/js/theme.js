@@ -20,20 +20,49 @@
             this.$navbar = $(this.$body).find('#navbar');
         },
         eventBinder: function() {
-            $('.has-dropdown').on('click', this.hasDropdownAction.bind(this));
 
-            $('body').on('click', this.closeDropdownAction.bind(this));
+            // Delegated clicks for dropdown toggles
+            this.$body.on('click', '.has-dropdown', this.hasDropdownAction.bind(this));
+
+            // Clicking outside any dropdown menu
+            this.$body.on('click', this.closeDropdownAction.bind(this));
+
+            // Mobile menu toggle
             $('#mobile-menu-button').on('click', this.mobileMenuAction.bind(this));
-            $('a').on('click', function() {
-                $('.dropdown-menu').hide();
+
+            // Clicking links closes dropdowns
+            this.$body.on('click', 'a', function() {
+                $('.dropdown-menu').hide().attr('aria-hidden', 'true');
+                $('.has-dropdown').attr('aria-expanded', 'false');
+            });
+
+
+            // Escape key closes dropdowns
+            $(document).on('keydown', function(e) {
+                if ( e.key === 'Escape' ) {
+                    $('.dropdown-menu').hide().attr('aria-hidden', 'true' );
+                    $('.has-dropdown').attr( 'aria-expanded', 'false' );
+                }
             });
         },
 
+        /**
+         * Dropdown menu.
+         * @param e
+         */
         hasDropdownAction: function(e) {
-            let menuId = $(e.target).data('menu-id');
-            $('.dropdown-menu').hide();
-            $('.dropdown-menu[data-menu="' + menuId + '"]').toggle('slide');
-            $('body').addClass('open-menu');
+            e.stopPropagation();
+
+            const $trigger = $(e.currentTarget);
+            const menuId = $trigger.data('menu-id');
+            const $dropdown = $('.dropdown-menu[data-menu="' + menuId + '"]');
+
+            $('.dropdown-menu').not($dropdown).hide().attr('aria-hidden', 'true');
+            $dropdown.toggle('slide');
+
+            const isOpen = $dropdown.is(':visible');
+            $trigger.attr('aria-expanded', isOpen);
+            $dropdown.attr('aria-hidden', !isOpen);
         },
 
         /**
@@ -46,6 +75,10 @@
             mobileMenu.toggleClass( 'transition-all duration-300 ease-in-out' );
         },
 
+        /**
+         * Close dropdown if click
+         * @param e
+         */
         closeDropdownAction: function(e) {
             let menu = $('.dropdown-menu'); // Get all dropdown menus
             let target = $(e.target);

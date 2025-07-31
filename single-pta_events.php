@@ -61,13 +61,6 @@ get_header();
 
                             <div id="event-products" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
 
-                            <div class="fixed bottom-0 right-0 p-6 bg-white shadow-lg border w-72" id="cart">
-                                <h3 class="font-bold">🛒 Cart</h3>
-                                <ul id="cart-items" class="text-sm mt-2"></ul>
-                                <p class="mt-4 font-semibold">Total: $<span id="cart-total">0.00</span></p>
-                                <button id="checkout-btn" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Checkout</button>
-                            </div>
-
 
 
 

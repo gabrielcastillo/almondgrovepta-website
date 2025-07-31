@@ -212,32 +212,14 @@ function agpta_login_header_url() {
     return  get_bloginfo('url');
 }
 
+/**
+ * Get text-domain for theme use.
+ * @return string
+ */
 function get_text_domain() :string {
     return 'agpta';
 }
 
-
-
-add_action( 'wp_enqueue_scripts', 'enqueue_stripe_js' );
-function enqueue_stripe_js() {
-    if ( is_singular( 'pta_events' ) ) {
-        wp_enqueue_script('stripe-js', 'https://js.stripe.com/v3/', [], null, true);
-    }
-}
-
-/**
- * Redirect user after payment success.
- */
-add_action(  'template_redirect', function() {
-    if ( is_page( 'payment-success' ) && isset( $_GET['session_id'] ) ) {
-        require_once __DIR__ . '/vendor/autoload.php';
-        //\Stripe\Stripe::setApiKey('');
-
-        $session = Session::retrieve( $_GET['session_id'] );
-
-        error_log('User paid for: ' . $session->amount_total );
-    }
-});
 
 /**
  * Create user email for successful payment.
@@ -294,12 +276,23 @@ function generate_pdf_ticket($event_name, $amount): string {
     return $path;
 }
 
-add_action( 'agpta_settings', 'agpta_top_banner_input_callback' );
 
+/**
+ *
+ * @TODO: Not sure what this is used for.
+ * @return void
+ */
 function agpta_top_banner_input_callback() {
     $options = get_options('agpta_settings');
 }
+add_action( 'agpta_settings', 'agpta_top_banner_input_callback' );
 
+/**
+ * Remove ptag from excerpt
+ * @param $excerpt
+ *
+ * @return void
+ */
 function custom_excerpt( $excerpt ) {
     echo preg_replace( '/^<p>|<\/p>$/', '', $excerpt);
 }
