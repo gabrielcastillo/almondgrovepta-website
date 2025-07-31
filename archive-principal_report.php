@@ -31,6 +31,11 @@
                                 <div class="mb-10 max-w-4xl mx-auto">
 			                        <?php the_post_thumbnail('full', ['class' => 'w-full h-auto rounded-lg']); ?>
                                 </div>
+                            <?php else :?>
+                                <div class="mb-10 max-w-4xl mx-auto">
+			                        <?php the_post_thumbnail('full', ['class' => 'w-full h-auto rounded-lg']); ?>
+                                    <img src="<?php echo esc_url( get_templatE_directory_uri() . '/images/ag-pta-logo.jpg' ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="w-full h-auto rouned-lg" />
+                                </div>
 	                        <?php endif; ?>
                         </div>
                         <div>
@@ -50,8 +55,8 @@
                             </div>
                             <div class="mt-6 flex border-t border-gray-900/5 pt-6">
                                 <div class="relative flex items-center gap-x-4">
-                                    <div class="text-sm/6">
-                                        <p class="font-semibold text-gray-900 capitalize">
+                                    <div>
+                                        <p class="font-semibold text-gray-600 capitalize text-sm">
                                             <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta('ID') ) ); ?>">
                                                 <span class="absolute inset-0"></span>
                                                By: <?php the_author(); ?>

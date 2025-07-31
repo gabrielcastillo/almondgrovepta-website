@@ -963,10 +963,6 @@ select {
   margin-bottom: 2.5rem;
 }
 
-.mb-20 {
-  margin-bottom: 5rem;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -1170,11 +1166,6 @@ select {
 .size-full {
   width: 100%;
   height: 100%;
-}
-
-.size-10 {
-  width: 2.5rem;
-  height: 2.5rem;
 }
 
 .h-16 {
@@ -1688,11 +1679,6 @@ select {
 .py-1\.5 {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
-}
-
-.py-10 {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
 }
 
 .py-12 {
@@ -2367,10 +2353,6 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
 }
 
 @media (min-width: 640px) {
-  .sm\:visible {
-    visibility: visible;
-  }
-
   .sm\:-mt-44 {
     margin-top: -11rem;
   }
@@ -2417,10 +2399,6 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
 
   .sm\:aspect-\[2\/1\] {
     aspect-ratio: 2/1;
-  }
-
-  .sm\:max-w-full {
-    max-width: 100%;
   }
 
   .sm\:grid-cols-2 {
