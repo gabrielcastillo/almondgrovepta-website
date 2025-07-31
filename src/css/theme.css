@@ -19,6 +19,10 @@ main {
     background: #FFFFFF;
 }
 
+#sidebar-primary {
+    @apply hidden md:block;
+}
+
 .hidden {
     display:none;
 }
@@ -68,6 +72,10 @@ input[type=text], input[type=email], textarea {
     @apply rounded focus:ring focus:ring-red-500 focus:border-0 focus:ring-1;
 }
 
+
+.post-content h2 {
+    @apply text-2xl font-semibold tracking-tight;
+}
 
 /** Widget Calendar */
 .wp-calendar-table {

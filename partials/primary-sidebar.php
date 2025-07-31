@@ -7,7 +7,7 @@
  */
 ?>
 
-<aside id="sidebar" class="w-1/4 border-l border-slate-200 p-0 hidden sm:block">
+<aside id="sidebar" class="w-1/4 md:border-l border-slate-200 p-0 hidden sm:block">
     <div class="py-24 flex justify-center">
         <?php get_sidebar('primary'); ?>
     </div>
