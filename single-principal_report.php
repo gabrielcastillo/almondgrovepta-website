@@ -6,6 +6,9 @@
  * Copyright (c) 2025.
  */
 
+
+$categories = get_the_category();
+
 ?>
 <?php get_header(); ?>
 <div class="flex container mx-auto border-r border-l bg-white min-h-screen">
@@ -36,7 +39,6 @@
                     </div>
 
                     <!-- Categories -->
-					<?php $categories = get_the_category(); ?>
 					<?php if ( $categories ) :?>
                         <p class="text-sm text-gray-600 space-x-2">
 							<?php foreach ( $categories as $category ) :?>
@@ -46,6 +48,8 @@
 							<?php endforeach; ?>
                         </p>
 					<?php endif; ?>
+
+
 					<?php get_template_part( 'partials/post-admin-links' ); ?>
                 </article>
 			<?php endwhile; ?>
