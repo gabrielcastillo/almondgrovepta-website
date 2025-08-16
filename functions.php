@@ -13,6 +13,7 @@ define('TEMPLATE_DIR', get_template_directory() );
 
 require_once TEMPLATE_DIR . '/inc/AGPTA_Nav_Menu_Builder.php';
 require_once TEMPLATE_DIR . '/inc/template-actions.php';
+require_once TEMPLATE_DIR . '/inc/event-calendar.php';
 
 register_nav_menu('primary','Primary Menu');
 register_nav_menu( 'footer', 'Footer Menu' );
@@ -31,6 +32,10 @@ add_action( 'widgets_init', 'agpta_register_sidebars' );
 
 add_filter('login_headerurl', 'agpta_login_header_url');
 
+/**
+ * Register sidebars
+ * @return void
+ */
 function agpta_register_sidebars() {
 	register_sidebar( array(
 		'id' => 'primary',
@@ -44,21 +49,22 @@ function agpta_register_sidebars() {
 }
 
 
-/**
- * Functions
- */
-
 /*
  * Load header and footer scripts
  */
 function agpta_load_scripts() {
 	if ( isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], '.test') > 0 ) {
-		wp_enqueue_style('tdsp-tailwind', get_template_directory_uri() . '/css/theme.css', array(), THEME_VERSION);
-		wp_enqueue_script( 'tdsp-tailwind', get_template_directory_uri() . '/src/js/theme.js', array('jquery'), THEME_VERSION, true );
+		wp_enqueue_style('agpta-theme-css', get_template_directory_uri() . '/css/theme.css', array(), THEME_VERSION);
+		wp_enqueue_script( 'agpta-theme-js', get_template_directory_uri() . '/src/js/theme.js', array('jquery'), THEME_VERSION, true );
 	} else {
-		wp_enqueue_style('tdsp-tailwind', get_template_directory_uri() . '/css/all.min.css', array(), THEME_VERSION);
-		wp_enqueue_script( 'tdsp-tailwind', get_template_directory_uri() . '/js/all.min.js', array('jquery'), THEME_VERSION, true );
+		wp_enqueue_style('agpta-theme-css', get_template_directory_uri() . '/css/all.min.css', array(), THEME_VERSION);
+		wp_enqueue_script( 'agpta-theme-js', get_template_directory_uri() . '/js/all.min.js', array('jquery'), THEME_VERSION, true );
 	}
+
+	// Pass AJAX URL
+	wp_localize_script('agpta-theme-js', 'EventCalendarData', array(
+		'ajax_url' => admin_url('admin-ajax.php')
+	));
 }
 
 /**

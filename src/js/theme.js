@@ -98,3 +98,51 @@
     });
 
 })(jQuery, document);
+
+jQuery(document).ready(function($) {
+    let calendarEl = document.getElementById('agpta-event-calendar');
+
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        eventDidMount: function(info) {
+            CustomTooltip.attach(info.el, `
+            <div>
+                <strong>${info.event.title}</strong>
+                <p>Price: ${info.event.extendedProps.description}</p>
+            </div>
+            `, {
+                position: 'top',
+            });
+        },
+        events: function( info, successCallback, failureCallback) {
+            $.ajax({
+                url: EventCalendarData.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'agpta_get_calendar_events',
+                    start: info.startStr,
+                    end: info.endStr
+                },
+                success: function( response ) {
+                    successCallback(response);
+                },
+                error: function(response) {
+                    failureCallback(response);
+                }
+            });
+        },
+        eventClick: function(info) {
+            window.location.href = info.event.url;
+        },
+
+    });
+    calendar.render();
+
+    function failureCallback(response) {
+        console.error(response);
+    }
+
+    function successCallback( response) {
+        console.log(response);
+    }
+});
