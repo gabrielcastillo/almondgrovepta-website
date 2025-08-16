@@ -9,42 +9,22 @@
 
 ?>
 <?php get_header(); ?>
-	<div class="flex container mx-auto border-r border-l bg-white min-h-screen">
-		<main class="flex-1 py-24 pb-0">
+	<?php do_action('theme_wrapper_open'); ?>
 
-            <!-- Page Title -->
-			<div class="w-full mx-auto space-y-4 text-center">
-				<p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
-				<h1 class="text-4xl font-bold leading-tight md:text-4xl">
-					<?php
-					if ( is_category() ) {
-						single_cat_title();
-					} elseif ( is_tag() ) {
-						single_tag_title();
-					} elseif ( is_author() ) {
-						the_author();
-					} elseif ( is_date() ) {
-						echo get_the_date();
-					} elseif ( is_post_type_archive() ) {
-						post_type_archive_title();
-					} else {
-						_e( "Archive", get_text_domain() );
-					}
-					?>
-				</h1>
+           <?php get_template_part( 'partials/archive-page-title' ); ?>
 
-			</div>
-
-			<div class="px-10 mt-16 space-y-20 lg:mt-20 archive-posts">
+			<div class="px-4 lg:px-10 mt-10 space-y-20 lg:mt-20 archive-posts">
 				<?php if ( have_posts() ) :?>
 					<?php while( have_posts() ) : the_post(); ?>
 
 						<article id="post-<?php the_ID(); ?>" class="relative isolate flex flex-col gap-8 lg:flex-row <?php post_class(); ?>">
-							<?php get_template_part( 'partials/archive-post','thumbnail' ); ?>
-							<div>
 
-								<div class="flex items-center gap-x-4 text-xs">
-									<time datetime="<?php echo get_the_date( 'c' ); ?>" class="text-gray-500"><?php echo get_the_date('M d, Y'); ?></time>
+                            <?php get_template_part( 'partials/archive-post','thumbnail' ); ?>
+
+							<div class="w-full">
+
+								<div class="flex items-center gap-x-2 text-xs">
+									Posted on:<time datetime="<?php echo get_the_date( 'c' ); ?>" class="text-gray-500"><?php echo get_the_date('M d, Y'); ?></time>
 								</div>
 
                                 <div class="group relative max-w-xl">
@@ -80,19 +60,6 @@
 					<p>No Reports Found!</p>
 				<?php endif; ?>
 			</div>
-			<div class="pagination">
-				<?php the_posts_navigation([
-					'mid_size' => 2,
-					'prev_text' => __('Prev', get_text_domain() ),
-					'next_text' => __('Next', get_text_domain() ),
-					'screen_reader_text' => __('Posts navigation', get_text_domain() )
-				]); ?>
-			</div>
-		</main>
-		<aside class="bg-white w-full md:w-1/4 hidden lg:block">
-			<div class="py-24 flex justify-center border-l">
-				<?php get_sidebar('primary'); ?>
-			</div>
-		</aside>
-	</div>
+			<?php do_action( 'theme_archive_pagination' ); ?>
+		<?php do_action( 'theme_wrapper_close' ); ?>
 <?php get_footer(); ?>

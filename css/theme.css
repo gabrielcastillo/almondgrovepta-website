@@ -867,6 +867,10 @@ select {
   pointer-events: none;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .absolute {
   position: absolute;
 }
@@ -1422,11 +1426,6 @@ select {
   border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
-.border-slate-200 {
-  --tw-border-opacity: 1;
-  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
-}
-
 .border-b-gray-100 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
@@ -1731,10 +1730,6 @@ select {
   font-weight: 500;
 }
 
-.font-normal {
-  font-weight: 400;
-}
-
 .font-semibold {
   font-weight: 600;
 }
@@ -1858,6 +1853,20 @@ select {
   --tw-ring-opacity: 0.05;
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
   background: #f5f5f4;
 }
@@ -1870,7 +1879,7 @@ main {
   display:none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1280px) {
   #sidebar-primary {
     display: block;
   }
@@ -2130,11 +2139,6 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
   color: rgb(209 213 219 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-gray-400:hover {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
-}
-
 .hover\:text-gray-600:hover {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity, 1));
@@ -2255,14 +2259,6 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
     justify-content: flex-start;
   }
 
-  .sm\:border-0 {
-    border-width: 0px;
-  }
-
-  .sm\:border-none {
-    border-style: none;
-  }
-
   .sm\:px-3 {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
@@ -2347,28 +2343,8 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
     display: none;
   }
 
-  .md\:w-1\/4 {
-    width: 25%;
-  }
-
-  .md\:w-3\/4 {
-    width: 75%;
-  }
-
   .md\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .md\:flex-row {
-    flex-direction: row;
-  }
-
-  .md\:border-l {
-    border-left-width: 1px;
-  }
-
-  .md\:p-6 {
-    padding: 1.5rem;
   }
 
   .md\:text-4xl {
@@ -2497,25 +2473,24 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
          column-gap: 2rem;
   }
 
-  .lg\:space-y-20 > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-y-reverse: 0;
-    margin-top: calc(5rem * calc(1 - var(--tw-space-y-reverse)));
-    margin-bottom: calc(5rem * var(--tw-space-y-reverse));
-  }
-
   .lg\:px-0 {
     padding-left: 0px;
     padding-right: 0px;
   }
 
-  .lg\:px-20 {
-    padding-left: 5rem;
-    padding-right: 5rem;
+  .lg\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 
   .lg\:pb-48 {
@@ -2572,6 +2547,10 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
     margin-right: 0px;
   }
 
+  .xl\:block {
+    display: block;
+  }
+
   .xl\:w-80 {
     width: 20rem;
   }
@@ -2586,6 +2565,15 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
 
   .xl\:rounded-3xl {
     border-radius: 1.5rem;
+  }
+
+  .xl\:border-l {
+    border-left-width: 1px;
+  }
+
+  .xl\:border-slate-200 {
+    --tw-border-opacity: 1;
+    border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
   }
 
   .xl\:pt-80 {

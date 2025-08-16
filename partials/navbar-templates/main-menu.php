@@ -14,7 +14,9 @@ $current_slug   = $wp->request;
 
 function render_menu_item( $menu_item, $current_slug ) {
     $slug = $menu_item['slug'] ?? '';
-    $active_class = ( $current_slug === $slug ) ? 'bg-red-700 text-white' : '';
+    
+    $active_class = ( strpos((string) $current_slug, $slug) === 0 && $slug !== '') ? 'bg-red-700 text-white': '';
+
     if ( isset( $menu_item['sub_menu'] ) && !empty( $menu_item['sub_menu'] ) ) {
         render_dropdown_menu( $menu_item, $active_class );
     } else {

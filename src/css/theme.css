@@ -20,7 +20,7 @@ main {
 }
 
 #sidebar-primary {
-    @apply hidden md:block;
+    @apply hidden xl:block;
 }
 
 .hidden {

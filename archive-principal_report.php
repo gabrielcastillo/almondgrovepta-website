@@ -10,8 +10,8 @@
 
 <?php get_header(); ?>
 
-<div class="flex container mx-auto border-r border-l bg-white min-h-screen">
-    <main class="flex-1 py-24 pb-0">
+    <?php do_action('theme_wrapper_open'); ?>
+
         <!-- Page Title -->
         <div class="w-full mx-auto space-y-4 text-center">
             <p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
@@ -22,18 +22,20 @@
             </h1>
         </div>
 
-        <div class="px-10 mt-16 space-y-20 lg:mt-20 archive-posts">
+        <div class="px-4 lg:px-10 mt-10 space-y-20 lg:mt-20 archive-posts">
 			<?php if ( have_posts() ) :?>
 				<?php while( have_posts() ) : the_post(); ?>
 
                     <article id="post-<?php the_ID(); ?>" class="relative isolate flex flex-col gap-8 lg:flex-row <?php post_class(); ?>">
+
                         <?php get_template_part( 'partials/archive-post', 'thumbnail' ); ?>
-                        <div>
+
+                        <div class="w-full">
                             <div class="flex items-center gap-x-4 text-xs">
                                 <time datetime="<?php the_date(); ?>" class="text-gray-500"><?php echo get_the_date(); ?></time>
                             </div>
 
-                            <div class="group relative max-w-xl">
+                            <div class="group relative max-w-7xl">
                                 <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
                                     <a href="<?php the_permalink(); ?>">
                                         <span class="absolute inset-0"></span>
@@ -66,12 +68,8 @@
                 <p>No Reports Found!</p>
 			<?php endif; ?>
         </div>
-        <div class="pagination">
-            <?php the_posts_navigation(); ?>
-        </div>
-    </main>
-	<?php get_template_part('partials/primary', 'sidebar'); ?>
-</div>
+	    <?php do_action( 'theme_archive_pagination' ); ?>
+	    <?php do_action( 'theme_wrapper_close' ); ?>
 <?php get_footer(); ?>
 
 

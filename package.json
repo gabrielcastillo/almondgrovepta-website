@@ -1,12 +1,7 @@
 {
   "scripts": {
-    "dev": "npx tailwindcss -i ./src/theme.css -o ./css/theme.css --watch",
-    "build": "npx tailwindcss -i ./css/theme.css -o ./css/build.css --build",
     "watch": "npx tailwindcss -i ./src/css/theme.css -o ./css/theme.css --watch",
-    "serve": "browser-sync start --proxy \"http://ptasite.test\" --files 'css/*.css, js/*.js, *.php'",
-    "start": "concurrently \"npm run dev\" \"npm run serve\"",
-    "minify-js": "minify ./src/js/theme.js > ./js/all.min.js",
-    "minify-css": "minify ./css/build.css > ./css/all.min.css",
+    "build": "npx tailwindcss -i ./css/theme.css -o ./css/build.css --build",
     "production": "npx tailwindcss -i ./src/css/theme.css -o ./css/theme.css && npx tailwindcss -i ./css/theme.css -o ./css/build.css --build && minify ./css/build.css > ./css/all.min.css && minify ./src/js/theme.js > ./js/all.min.js"
   },
   "devDependencies": {

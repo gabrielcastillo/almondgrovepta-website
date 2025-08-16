@@ -10,11 +10,5 @@
 ?>
 <div id="sidebar-primary" class="px-4">
 	<?php dynamic_sidebar( 'primary' ); ?>
-    <ul class="mt-6 space-y-4">
-        <li><a href="#" class="hover:text-gray-400">Link 1</a></li>
-        <li><a href="#" class="hover:text-gray-400">Link 2</a></li>
-        <li><a href="#" class="hover:text-gray-400">Link 3</a></li>
-        <li><a href="#" class="hover:text-gray-400">Link 4</a></li>
-    </ul>
 </div>
 

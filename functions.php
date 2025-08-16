@@ -12,6 +12,7 @@ define('THEME_VERSION', '1.0.0');
 define('TEMPLATE_DIR', get_template_directory() );
 
 require_once TEMPLATE_DIR . '/inc/AGPTA_Nav_Menu_Builder.php';
+require_once TEMPLATE_DIR . '/inc/template-actions.php';
 
 register_nav_menu('primary','Primary Menu');
 register_nav_menu( 'footer', 'Footer Menu' );
@@ -51,7 +52,7 @@ function agpta_register_sidebars() {
  * Load header and footer scripts
  */
 function agpta_load_scripts() {
-	if (strpos($_SERVER['HTTP_HOST'], '.test') > 0 ) {
+	if ( isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], '.test') > 0 ) {
 		wp_enqueue_style('tdsp-tailwind', get_template_directory_uri() . '/css/theme.css', array(), THEME_VERSION);
 		wp_enqueue_script( 'tdsp-tailwind', get_template_directory_uri() . '/src/js/theme.js', array('jquery'), THEME_VERSION, true );
 	} else {
@@ -295,4 +296,10 @@ add_action( 'agpta_settings', 'agpta_top_banner_input_callback' );
  */
 function custom_excerpt( $excerpt ) {
     echo preg_replace( '/^<p>|<\/p>$/', '', $excerpt);
+}
+
+function no_sidebar( $sidebar = 'primary' ) {
+    if ( ! is_active_sidebar( $sidebar ) ) {
+        return 'no-sidebar';
+    }
 }

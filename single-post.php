@@ -8,43 +8,29 @@
 
 ?>
 <?php get_header(); ?>
-    <div class="flex container mx-auto border-r border-l bg-white min-h-screen">
-        <main class="flex-1 py-24 pb-0">
-            <div class="md:hidden flex items-center mb-4">
-                <button onclick="toggleSidebar()" class="text-gray-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-			<?php if ( have_posts() ) :?>
-				<?php while( have_posts() ) : the_post(); ?>
-                    <article>
-                        <div class="w-full mx-auto space-y-4 text-center">
-                            <p class="text-xs font-semibold tracking-wider uppercase">Almond Grove PTA</p>
-                            <h1 class="text-4xl font-bold leading-tight md:text-5xl"><?php the_title(); ?></h1>
-                            <p class="text-sm dark:text-gray-600">by
-                                <a rel="noopener noreferrer" href="#" target="_blank" class="underline dark:text-violet-600">
-                                    <span itemprop="name"><?php the_author(); ?></span>
-                                </a>on
-                                <time datetime="<?php the_date(); ?>"><?php echo get_the_date(); ?></time>
-                            </p>
+    <?php do_action( 'theme_wrapper_open' ); ?>
+        <?php if ( have_posts() ) :?>
+            <?php while( have_posts() ) : the_post(); ?>
+                <article class="px-4 lg:px-10">
+
+                    <!-- Page Heading -->
+                    <?php get_template_part( 'partials/single-page', 'heading' ); ?>
+
+                    <!-- Featured Image -->
+                    <?php if ( has_post_thumbnail() ) :?>
+                        <div class="mb-10 max-w-4xl mx-auto">
+                            <?php the_post_thumbnail('full', ['class' => 'w-full h-auto rounded-lg shadow', 'alt' => esc_attr( get_the_title() )]); ?>
                         </div>
-                        <div class="post-content">
-							<?php the_content(); ?>
-							<?php wp_link_pages(); ?>
-							<?php edit_post_link(); ?>
-                        </div>
-                    </article>
-				<?php endwhile; ?>
-			<?php else: ?>
-                <p>No Post Found!</p>
-			<?php endif; ?>
-        </main>
-        <aside id="sidebar" class="w-1/4 border-l p-0 hidden sm:block">
-            <div class="py-24 flex justify-center">
-				<?php get_sidebar('primary'); ?>
-            </div>
-        </aside>
-    </div>
+                    <?php endif; ?>
+
+                    <div class="post-content">
+                        <?php the_content(); ?>
+                    </div>
+
+                    <?php get_template_part( 'partials/post-admin-links' ); ?>
+
+                </article>
+            <?php endwhile; ?>
+        <?php endif; ?>
+    <?php do_action( 'theme_wrapper_close' ); ?>
 <?php get_footer(); ?>
