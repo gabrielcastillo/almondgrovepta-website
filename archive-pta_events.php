@@ -27,7 +27,7 @@
 									Posted on:<time datetime="<?php echo get_the_date( 'c' ); ?>" class="text-gray-500"><?php echo get_the_date('M d, Y'); ?></time>
 								</div>
 
-                                <div class="group relative max-w-xl">
+                                <div class="group relative max-w-7xl">
                                     <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
                                         <a href="<?php the_permalink(); ?>">
                                             <span class="absolute inset-0"></span>
@@ -56,10 +56,8 @@
 						</article>
 
 					<?php endwhile; ?>
-				<?php else: ?>
-					<p>No Reports Found!</p>
 				<?php endif; ?>
 			</div>
 			<?php do_action( 'theme_archive_pagination' ); ?>
-		<?php do_action( 'theme_wrapper_close' ); ?>
+		<?php do_action( 'theme_wrapper_close', true ); ?>
 <?php get_footer(); ?>

@@ -304,6 +304,12 @@ function custom_excerpt( $excerpt ) {
     echo preg_replace( '/^<p>|<\/p>$/', '', $excerpt);
 }
 
+/**
+ * Check if sidebar has active widgets.
+ * @param $sidebar
+ *
+ * @return string|void
+ */
 function no_sidebar( $sidebar = 'primary' ) {
     if ( ! is_active_sidebar( $sidebar ) ) {
         return 'no-sidebar';

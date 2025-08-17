@@ -115,6 +115,13 @@ input[type=text], input[type=email], textarea {
 }
 
 
-.add_to_cart_button {
-    @apply bg-red-600 rounded px-4 py-2 text-white hover:bg-red-400;
+.post-content h2 {
+    @apply mb-4;
+}
+
+.alignleft {
+    float: left;
+    margin-right: 1.5em;
+    display: inline;
+    width: auto;
 }
