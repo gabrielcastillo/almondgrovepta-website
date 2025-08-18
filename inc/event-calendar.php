@@ -6,15 +6,27 @@
  * Copyright (c) 2025.
  */
 
+add_action( 'wp_enqueue_scripts', 'enqueue_event_calendar_assets' );
+add_shortcode( 'agpta_event_calendar', 'render_event_calendar_shortcode' );
+add_action( 'wp_ajax_agpta_get_calendar_events', 'agpta_get_calendar_events_ajax' );
+add_action( 'wp_ajax_nopriv_agpta_get_calendar_events', 'agpta_get_calendar_events_ajax' );
 
+/**
+ * Load assets for event calendar
+ *
+ * @return void
+ */
 function enqueue_event_calendar_assets() {
 	if ( has_shortcode( get_post()->post_content, 'agpta_event_calendar' ) ) {
 		wp_enqueue_script( 'fullcalendar-js', 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js', array( 'jquery' ), '6.1.19', true );
-    }
+	}
 }
-add_action( 'wp_enqueue_scripts', 'enqueue_event_calendar_assets' );
 
-
+/**
+ * Display event calendar. Using Shortcode
+ *
+ * @return false|string
+ */
 function render_event_calendar_shortcode() {
 	ob_start();
 	?>
@@ -23,11 +35,14 @@ function render_event_calendar_shortcode() {
 	return ob_get_clean();
 }
 
-add_shortcode( 'agpta_event_calendar', 'render_event_calendar_shortcode' );
-
+/**
+ * Get events via AJAX request.
+ *
+ * @return void
+ */
 function agpta_get_calendar_events_ajax() {
-	$start = isset( $_POST['start'] ) ? gmdate( 'Y-m-d H:i:s', strtotime( $_POST['start'] ) ) : '';
-	$end   = isset( $_POST['end'] ) ? gmdate( 'Y-m-d H:i:s', strtotime( $_POST['end'] ) ) : '';
+	$start = isset( $_POST['start'] ) ? $_POST['start'] : '';
+	$end   = isset( $_POST['end'] ) ? $_POST['end'] : '';
 
 	if ( ! $start || ! $end ) {
 		wp_send_json_error( 'Invalid date range.' );
@@ -37,13 +52,16 @@ function agpta_get_calendar_events_ajax() {
 		'post_type'      => 'pta_events',
 		'post_status'    => 'publish',
 		'posts_per_page' => -1,
-		'date_query'     => array(
+		'meta_query'     => array(
 			array(
-				'after'  => $start,
-				'before' => $end,
+				'key'     => '_agpta_event_date',
+				'value'   => array( $start, $end ),
+				'compare' => 'BETWEEN',
+				'type'    => 'DATETIME',
 			),
 		),
-		'orderby'        => 'date',
+		'orderby'        => 'meta_value',
+		'meta_key'       => '_agpta_event_date',
 		'order'          => 'ASC',
 	);
 
@@ -74,5 +92,4 @@ function agpta_get_calendar_events_ajax() {
 }
 
 
-add_action( 'wp_ajax_agpta_get_calendar_events', 'agpta_get_calendar_events_ajax' );
-add_action( 'wp_ajax_nopriv_agpta_get_calendar_events', 'agpta_get_calendar_events_ajax' );
+

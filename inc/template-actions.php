@@ -7,6 +7,14 @@
  */
 
 add_action( 'theme_wrapper_open', 'agpta_content_page_wrapper_open' );
+add_action( 'theme_archive_pagination', 'agpta_custom_archive_pagination' );
+add_action( 'theme_wrapper_close', 'agpta_content_page_wrapper_close' );
+
+/**
+ * Content Open code.
+ *
+ * @return void
+ */
 function agpta_content_page_wrapper_open() {
 	?>
 
@@ -16,7 +24,16 @@ function agpta_content_page_wrapper_open() {
 	<?php
 }
 
-add_action( 'theme_wrapper_close', 'agpta_content_page_wrapper_close' );
+/**
+ * Content Wrapper Closing HTML
+ * This contains sidebar template part.
+ * Sidebar login has the ability to detect if
+ * sidebar widgets are active.
+ *
+ * @param $sidebar bool True | False, to show sidebar.
+ *
+ * @return void
+ */
 function agpta_content_page_wrapper_close( $sidebar = true ) {
 	?>
 
@@ -28,7 +45,10 @@ function agpta_content_page_wrapper_close( $sidebar = true ) {
 	<?php
 }
 
-add_action( 'theme_archive_pagination', 'agpta_custom_archive_pagination' );
+/**
+ * Custom Archive Page Pagination
+ * @return void
+ */
 function agpta_custom_archive_pagination() {
 	?>
 	<div class="pagination">

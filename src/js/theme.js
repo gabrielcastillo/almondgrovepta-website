@@ -126,6 +126,7 @@ jQuery( document ).ready(
 						<div>
 						<strong> ${info.event.title} </strong>
 						<p> Price: $${Number(info.event.extendedProps.description).toFixed(2)} </p>
+						<p>Click event to view details.</p>
 						</div>
 						`,
 							{
