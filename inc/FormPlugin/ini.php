@@ -19,14 +19,18 @@ function sv_form_shortcode() {
 	ob_start();
 	?>
 
-		<div id="messages">
-			<?php
-			if ( isset( $_GET['success'] ) ) {
-				echo '<p style="color:green;">Message sent successfully!</p>';
+	<div id="messages">
+		<?php
+		if ( isset( $_GET['success'] ) ) {
+			if ( $_GET['success'] == 1 ) {
+				echo '<p style="color: green;">Message sent successfully!</p>';
+			} else {
+				echo '<p style="color: red;">There was a problem sending your message. Please try again.</p>';
 			}
+		}
+		?>
+	</div>
 
-			?>
-		</div>
 
 	<form id="sv_contact_form" method="POST">
 		<input type="hidden" name="sv_nonce" value="<?php echo esc_attr( wp_create_nonce( 'sv_form_nonce' ) ); ?>" />
@@ -61,7 +65,7 @@ function sv_form_shortcode() {
 function sv_handle_form_submission() {
 	if ( isset( $_POST['submit_form'] ) ) {
 		global $wpdb;
-
+		$referer = wp_get_referer();
 		if (
 			! isset( $_POST['sv_nonce'] ) ||
 			! wp_verify_nonce( $_POST['sv_nonce'], 'sv_form_nonce' )
@@ -90,13 +94,11 @@ function sv_handle_form_submission() {
 		$body        = "You have a new submission from $name ($email):\n\n$message";
 		$headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
 
-		if ( wp_mail( $admin_email, $subject, $body, $headers ) ) {
-			wp_redirect( home_url( '/contact/?success=1#messages' ) );
-			exit;
-		} else {
-			wp_redirect( home_url( '/contact/?success=0#messages' ) );
-			exit;
-		}
+		$mail_sent = wp_mail( $admin_email, $subject, $body, $headers );
+
+		$redirect_url = add_query_arg( 'success', $mail_sent ? 1 : 0, $referer ) . '#messages';
+		wp_redirect( $redirect_url );
+		exit;
 	}
 }
 
