@@ -14,6 +14,7 @@ define('TEMPLATE_DIR', get_template_directory() );
 require_once TEMPLATE_DIR . '/inc/AGPTA_Nav_Menu_Builder.php';
 require_once TEMPLATE_DIR . '/inc/template-actions.php';
 require_once TEMPLATE_DIR . '/inc/event-calendar.php';
+require_once TEMPLATE_DIR . '/inc/FormPlugin/ini.php';
 
 register_nav_menu('primary','Primary Menu');
 register_nav_menu( 'footer', 'Footer Menu' );

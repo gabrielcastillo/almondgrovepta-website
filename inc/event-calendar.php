@@ -17,9 +17,7 @@ add_action( 'wp_ajax_nopriv_agpta_get_calendar_events', 'agpta_get_calendar_even
  * @return void
  */
 function enqueue_event_calendar_assets() {
-	if ( has_shortcode( get_post()->post_content, 'agpta_event_calendar' ) ) {
-		wp_enqueue_script( 'fullcalendar-js', 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js', array( 'jquery' ), '6.1.19', true );
-	}
+	wp_enqueue_script( 'fullcalendar-js', 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js', array( 'jquery' ), '6.1.19', true );
 }
 
 /**

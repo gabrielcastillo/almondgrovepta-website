@@ -7,38 +7,72 @@
  */
 
 add_shortcode( 'sv_form', 'sv_form_shortcode' );
+add_action( 'init', 'sv_handle_form_submission' );
+add_action( 'wp_loaded', 'create_custom_form_table' );
 
+/**
+ * Display form using shortcode
+ *
+ * @return false|string
+ */
 function sv_form_shortcode() {
 	ob_start();
 	?>
-	<
 
-	<form id="custom_form" method="POST">
-		<label for="name">Name:</label>
-		<input type="text" name="name" id="name" required><br>
+		<div id="messages">
+			<?php
+			if ( isset( $_GET['success'] ) ) {
+				echo '<p style="color:green;">Message sent successfully!</p>';
+			}
 
-		<label for="email">Email:</label>
-		<input type="email" name="email" id="email" required><br>
+			?>
+		</div>
 
-		<label for="message">Message:</label>
-		<textarea name="message" id="message" required></textarea><br>
+	<form id="sv_contact_form" method="POST">
+		<input type="hidden" name="sv_nonce" value="<?php echo esc_attr( wp_create_nonce( 'sv_form_nonce' ) ); ?>" />
+		<div class="mb-8">
+			<label for="name">Name:</label>
+			<input  class="w-full" type="text" name="form_name" id="name" required><br>
+		</div>
 
-		<input type="submit" name="submit_form" value="Submit">
+		<div class="mb-8">
+			<label for="email">Email:</label>
+			<input  class="w-full" type="email" name="form_email" id="email" required><br>
+		</div>
+
+		<div class="mb-8">
+			<label for="message">Message:</label>
+			<textarea  class="w-full" rows="10" name="form_message" id="message" required></textarea><br>
+		</div>
+		<div class="mb-0">
+			<input type="submit" name="submit_form" value="Submit" class="rounded-md bg-red-700 px-3.5 py-2.5 text-xs font-semibold text-white shadow-sm ring-1 ring-inset ring-red-500 hover:bg-red-500">
+		</div>
 	</form>
 
 	<?php
 	return ob_get_clean();
 }
 
-
-add_action( 'init', 'sv_handle_form_submission' );
+/**
+ * Form Processor. Handle form submission.
+ *
+ * @return void
+ */
 function sv_handle_form_submission() {
 	if ( isset( $_POST['submit_form'] ) ) {
 		global $wpdb;
 
+		if (
+			! isset( $_POST['sv_nonce'] ) ||
+			! wp_verify_nonce( $_POST['sv_nonce'], 'sv_form_nonce' )
+		) {
+			wp_redirect( home_url( '/contact/?success=0#messages' ) );
+			exit;
+		}
+
 		$name    = sanitize_text_field( $_POST['form_name'] );
 		$email   = sanitize_email( $_POST['form_email'] );
-		$message = sanitize_text_field( $_POST['form_message'] );
+		$message = sanitize_textarea_field( $_POST['form_message'] );
 
 		$tablename = $wpdb->prefix . 'sv_form_entries';
 		$wpdb->insert(
@@ -51,14 +85,43 @@ function sv_handle_form_submission() {
 			)
 		);
 
-		$admin_email = get_option( 'amdin_email' );
+		$admin_email = get_option( 'admin_email' );
 		$subject     = 'New Form Submission';
 		$body        = "You have a new submission from $name ($email):\n\n$message";
 		$headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
 
-		wp_mail( $admin_email, $subject, $body, $headers );
-
-		wp_redirect( home_url( '/thank-you/' ) );
-		exit;
+		if ( wp_mail( $admin_email, $subject, $body, $headers ) ) {
+			wp_redirect( home_url( '/contact/?success=1#messages' ) );
+			exit;
+		} else {
+			wp_redirect( home_url( '/contact/?success=0#messages' ) );
+			exit;
+		}
 	}
 }
+
+/**
+ * Create database table if not exists.
+ *
+ * @return void
+ */
+function create_custom_form_table() {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'sv_form_entries';
+
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) != $table_name ) {
+		$charset_collate = $wpdb->get_charset_collate();
+		$sql             = "CREATE TABLE $table_name (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            name varchar(255) NOT NULL,
+            email varchar(100) NOT NULL,
+            message text NOT NULL,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+            PRIMARY KEY (id)
+        ) $charset_collate;";
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
+	}
+}
+
