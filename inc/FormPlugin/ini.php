@@ -32,16 +32,16 @@ function sv_form_shortcode() {
 	</div>
 
 
-	<form id="sv_contact_form" method="POST">
+	<form id="sv_contact_form" method="POST" class="my-10">
 		<input type="hidden" name="sv_nonce" value="<?php echo esc_attr( wp_create_nonce( 'sv_form_nonce' ) ); ?>" />
 		<div class="mb-8">
-			<label for="name">Name:</label>
-			<input  class="w-full" type="text" name="form_name" id="name" required><br>
+			<label for="name" class="w-full block">Name:</label>
+			<input  class="w-full sm:w-1/2" type="text" name="form_name" id="name" required><br>
 		</div>
 
 		<div class="mb-8">
-			<label for="email">Email:</label>
-			<input  class="w-full" type="email" name="form_email" id="email" required><br>
+			<label for="email" class="w-full block">Email:</label>
+			<input  class="w-full sm:w-1/2" type="email" name="form_email" id="email" required><br>
 		</div>
 
 		<div class="mb-8">

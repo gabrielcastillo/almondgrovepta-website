@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="relative lg:col-span-5 lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
-			<img class="aspect-[3/2] w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full" src="<?php echo esc_url( get_template_directory_uri() . '/images/school-cone.jpg' ); ?>" alt="">
+			<img class="h-auto max-w-sm rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30" src="<?php echo esc_url( get_template_directory_uri() . '/images/school-cone.jpg' ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
 		</div>
 	</div>
 </div>
