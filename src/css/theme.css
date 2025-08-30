@@ -90,7 +90,7 @@ input[type=text], input[type=email], textarea {
 /* Nested UL inside UL or OL */
 .post-content ul ul,
 .post-content ol ul {
-    @apply list-circle ml-6 space-y-1;
+    @apply list-decimal ml-6 space-y-1;
 }
 
 /* Nested OL inside UL or OL */

@@ -3,7 +3,8 @@ module.exports = {
   content: [
     "./**/*.{html,js,php}",
     "!./node_modules/**",
-    "!./vendor/**"
+    "!./vendor/**",
+    "../../plugins/agpta/**/*.{html,js,php}"
   ],
   mode: 'jit',
   theme: {

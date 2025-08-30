@@ -5,8 +5,6 @@
  * @author Gabriel Castillo <gabriel@gabrielcastillo.net>
  * Copyright (c) 2025.
  */
-use Dompdf\Dompdf;
-use Stripe\Checkout\Session;
 
 define('THEME_VERSION', '1.0.0');
 define('TEMPLATE_DIR', get_template_directory() );
