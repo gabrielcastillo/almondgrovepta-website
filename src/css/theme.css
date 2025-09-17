@@ -39,6 +39,22 @@ main {
     @apply text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl;
 }
 
+.h1-heading {
+    @apply mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl;
+}
+
+.h2-heading {
+    @apply mt-16 text-pretty text-3xl font-semibold tracking-tight text-gray-900;
+}
+
+.heading-title {
+    @apply text-base/7 font-semibold text-indigo-600;
+}
+
+.p-strong {
+    @apply mt-6 text-xl/8;
+}
+
 .large-text {
     @apply mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none;
 }
@@ -160,3 +176,6 @@ input[type=text], input[type=email], textarea {
     clear: both;
 }
 
+#topbar a {
+    @apply text-red-500 underline;
+}
