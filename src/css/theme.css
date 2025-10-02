@@ -179,3 +179,7 @@ input[type=text], input[type=email], textarea {
 #topbar a {
     @apply text-red-500 underline;
 }
+
+ul.list-style-none {
+    list-style:none;
+}

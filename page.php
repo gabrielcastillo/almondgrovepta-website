@@ -10,7 +10,7 @@
 <?php get_header(); ?>
 <?php do_action( 'theme_wrapper_open' ); ?>
 	<div class="bg-white px-6 lg:px-8">
-		<div class="mx-auto max-w-3xl text-base/7 text-gray-700">
+		<div class="mx-auto max-w-5xl text-base/7 text-gray-700">
 			<?php if ( have_posts() ) : ?>
 				<?php
 				while ( have_posts() ) :

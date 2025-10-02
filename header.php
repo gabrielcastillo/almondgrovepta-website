@@ -8,6 +8,8 @@
 
 $banner = ( is_front_page() ) ? true : false;
 
+
+
 ?>
 <!DOCTYPE html>
 <html class="h-full">
