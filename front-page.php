@@ -8,15 +8,16 @@
 ?>
 
 <?php get_header(); ?>
-<?php get_template_part( 'partials/hero', 'template' ); ?>
-	<div class="bg-white container mx-auto border-l border-r">
+<div class="border-r border-l">
+	<?php get_template_part( 'partials/hero', 'template' ); ?>
+	<div class="bg-white container mx-auto">
 
 		<main class="isolate">
 			<!-- Hero section -->
 			<?php get_template_part( 'partials/our-mission' ); ?>
-
+			<?php get_template_part( 'partials/frontpage-content' ); ?>
 		</main>
 
 	</div>
-<?php
-get_footer();
+</div>
+<?php get_footer(); ?>

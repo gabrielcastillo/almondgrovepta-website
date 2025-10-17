@@ -183,3 +183,18 @@ input[type=text], input[type=email], textarea {
 ul.list-style-none {
     list-style:none;
 }
+
+.agpta-homepage-sidebar-widget {
+    @apply bg-gray-100 p-4 shadow rounded mb-4;
+}
+.agpta-homepage-sidebar-widget-header {
+    @apply text-lg font-semibold mb-2;
+}
+
+#searchsubmit {
+    @apply px-3 py-2.5 text-base font-semibold text-white bg-red-700 rounded-md hover:bg-opacity-80 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:outline-none focus:ring-opacity-50;
+}
+
+#fontpage h2 {
+    @apply text-xl font-bold mb-4;
+}

@@ -1,6 +1,6 @@
 <?php
 /*
- * File: single.php
+ * File: page.php
  *
  * @author Gabriel Castillo <gabriel@gabrielcastillo.net>
  * Copyright (c) 2025.
