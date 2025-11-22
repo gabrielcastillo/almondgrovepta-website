@@ -6,9 +6,9 @@
  * Copyright (c) 2025.
  */
 
-$banner = ( is_front_page() ) ? true : false;
+//$banner = is_front_page();
 
-
+$banner = true;
 
 ?>
 <!DOCTYPE html>
