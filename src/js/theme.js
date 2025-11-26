@@ -5,48 +5,47 @@
  * Copyright (c) 2025.
  */
 
-
-
-(function ( $, document ) {
-
+(function ($, document) {
 	const theme = {
-
 		init: function () {
 			this.domCache();
 			this.eventBinder();
 		},
 		domCache: function () {
-			this.$body   = $( 'body' );
-			this.$navbar = $( this.$body ).find( '#navbar' );
+			this.$body   = $( "body" );
+			this.$navbar = $( this.$body ).find( "#navbar" );
 		},
 		eventBinder: function () {
-
-			// Delegated clicks for dropdown toggles
-			this.$body.on( 'click', '.has-dropdown', this.hasDropdownAction.bind( this ) );
-
-			// Clicking outside any dropdown menu
-			this.$body.on( 'click', this.closeDropdownAction.bind( this ) );
-
-			// Mobile menu toggle
-			$( '#mobile-menu-button' ).on( 'click', this.mobileMenuAction.bind( this ) );
-
-			// Clicking links closes dropdowns
+			// Delegated clicks for dropdown toggles.
 			this.$body.on(
-				'click',
-				'a',
+				"click",
+				".has-dropdown",
+				this.hasDropdownAction.bind( this ),
+			);
+
+			// Clicking outside any dropdown menu.
+			this.$body.on( "click", this.closeDropdownAction.bind( this ) );
+
+			// Mobile menu toggle.
+			$( "#mobile-menu-button" ).on( "click", this.mobileMenuAction.bind( this ) );
+
+			// Clicking links closes dropdowns.
+			this.$body.on(
+				"click",
+				"a",
 				function () {
-					$( '.dropdown-menu' ).hide().attr( 'aria-hidden', 'true' );
-					$( '.has-dropdown' ).attr( 'aria-expanded', 'false' );
+					$( ".dropdown-menu" ).hide().attr( "aria-hidden", "true" );
+					$( ".has-dropdown" ).attr( "aria-expanded", "false" );
 				}
 			);
 
-			// Escape key closes dropdowns
+			// Escape key closes dropdowns.
 			$( document ).on(
-				'keydown',
+				"keydown",
 				function (e) {
-					if ( e.key === 'Escape' ) {
-						$( '.dropdown-menu' ).hide().attr( 'aria-hidden', 'true' );
-						$( '.has-dropdown' ).attr( 'aria-expanded', 'false' );
+					if (e.key === "Escape") {
+						$( ".dropdown-menu" ).hide().attr( "aria-hidden", "true" );
+						$( ".has-dropdown" ).attr( "aria-expanded", "false" );
 					}
 				}
 			);
@@ -61,15 +60,15 @@
 			e.stopPropagation();
 
 			const $trigger  = $( e.currentTarget );
-			const menuId    = $trigger.data( 'menu-id' );
+			const menuId    = $trigger.data( "menu-id" );
 			const $dropdown = $( '.dropdown-menu[data-menu="' + menuId + '"]' );
 
-			$( '.dropdown-menu' ).not( $dropdown ).hide().attr( 'aria-hidden', 'true' );
-			$dropdown.toggle( 'slide' );
+			$( ".dropdown-menu" ).not( $dropdown ).hide().attr( "aria-hidden", "true" );
+			$dropdown.toggle( "slide" );
 
-			const isOpen = $dropdown.is( ':visible' );
-			$trigger.attr( 'aria-expanded', isOpen );
-			$dropdown.attr( 'aria-hidden', ! isOpen );
+			const isOpen = $dropdown.is( ":visible" );
+			$trigger.attr( "aria-expanded", isOpen );
+			$dropdown.attr( "aria-hidden", ! isOpen );
 		},
 
 		/**
@@ -78,9 +77,9 @@
 		 * @param e
 		 */
 		mobileMenuAction: function (e) {
-			let mobileMenu = $( '#mobile-menu' );
-			mobileMenu.toggleClass( 'hidden' );
-			mobileMenu.toggleClass( 'transition-all duration-300 ease-in-out' );
+			let mobileMenu = $( "#mobile-menu" );
+			mobileMenu.toggleClass( "hidden" );
+			mobileMenu.toggleClass( "transition-all duration-300 ease-in-out" );
 		},
 
 		/**
@@ -89,17 +88,17 @@
 		 * @param e
 		 */
 		closeDropdownAction: function (e) {
-			let menu   = $( '.dropdown-menu' ); // Get all dropdown menus
+			let menu   = $( ".dropdown-menu" ); // Get all dropdown menus.
 			let target = $( e.target );
 
-			if ( ! target.closest( '.has-dropdown' ).length ) {
-				for ( let i = 0; i < menu.length; i++ ) {
-					if ( window.getComputedStyle( menu[i] ).display === 'block' ) {
+			if ( ! target.closest( ".has-dropdown" ).length) {
+				for (let i = 0; i < menu.length; i++) {
+					if (window.getComputedStyle( menu[i] ).display === "block") {
 						$( menu[i] ).hide();
 					}
 				}
 			}
-		}
+		},
 	};
 
 	$( document ).ready(
@@ -107,67 +106,70 @@
 			theme.init();
 		}
 	);
-
 })( jQuery, document );
 
 jQuery( document ).ready(
 	function ($) {
-		let calendarEl = document.getElementById( 'agpta-event-calendar' );
+		let calendarEl = document.getElementById( "agpta-event-calendar" );
 
-		if ( calendarEl ) {
+		if (calendarEl) {
 			let calendar = new FullCalendar.Calendar(
 				calendarEl,
 				{
-					initialView: 'dayGridMonth',
+					initialView: "dayGridMonth",
 					eventDidMount: function (info) {
+						const itemType = info.event.extendedProps.category;
+						console.log(itemType);
+						const priceValue   = info.event.extendedProps.description;
+						let priceFormatted = "";
+
+						if ( ! isNaN( parseFloat( priceValue ) )) {
+							priceFormatted = "$" + parseFloat( priceValue ).toFixed( 2 );
+						} else {
+							priceFormatted = priceValue || "N/A";
+						}
+
+
 						CustomTooltip.attach(
 							info.el,
 							`
-						<div>
-						<strong> ${info.event.title} </strong>
-						<p> Price: $${Number(info.event.extendedProps.description).toFixed(2)} </p>
-						<p>Click event to view details.</p>
-						</div>
-						`,
+							<div>
+							<strong> ${info.event.title} </strong>
+							${itemType === 'event' ? `<p>Price: ${priceFormatted}</p>` : ''}
+							<p> Click to view details.</p>
+							</div>
+							`,
 							{
-								position: 'top',
-							}
+								position: "top",
+								container: 'body',
+							},
 						);
 					},
-					events: function ( info, successCallback, failureCallback) {
+					events: function (info, successCallback, failureCallback) {
 						$.ajax(
 							{
 								url: EventCalendarData.ajax_url,
-								type: 'POST',
+								type: "POST",
 								data: {
-									action: 'agpta_get_calendar_events',
+									action: "agpta_get_calendar_events",
 									start: info.startStr,
-									end: info.endStr
+									end: info.endStr,
 								},
-								success: function ( response ) {
+								success: function (response) {
 									successCallback( response );
 								},
 								error: function (response) {
 									failureCallback( response );
-								}
+								},
 							}
 						);
 					},
 					eventClick: function (info) {
 						window.location.href = info.event.url;
 					},
-
 				}
 			);
 			calendar.render();
-
-			function failureCallback(response) {
-				console.error( response );
-			}
-
-			function successCallback( response) {
-				console.log( response );
-			}
 		}
 	}
 );
